@@ -1,8 +1,12 @@
-import { Router } from "express"
+import { Router } from 'express';
+import { scrapeOddsByEvent } from './controllers/scrapeOddsByEvent';
 
-const router = Router()
+// Initialise router 
 
+const router: Router = Router();
 
-router.post('hello')
+// Define routes 
 
-export default router 
+router.post('/odds', scrapeOddsByEvent);
+
+export default router;
