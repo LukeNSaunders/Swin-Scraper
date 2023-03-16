@@ -1,14 +1,14 @@
 import User, { UserDocument } from '../models/userSchema';
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 import { Request, Response } from 'express';
 
-dotenv.config()
+dotenv.config();
 
-const tokenKey : Secret = process.env.TOKEN_KEY as Secret 
+const tokenKey: Secret = process.env.TOKEN_KEY as Secret;
 
-export const registerUser = async (req: Request, res: Response): Promise<void> => {
+export const registerUser = async (req: Request,res: Response): Promise<void> => {
   const { username, email, password } = req.body;
 
   try {
@@ -36,17 +36,16 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     });
     res.status(201).send(newUser);
   } catch (error) {
-    res.status(500)
+    res.status(500);
     console.log('ERROR', error);
   }
 };
 
-
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password } = req.body;
   try {
-    // find user in database with provided email address 
-    const user = await User.findOne({ email: email});
+    // find user in database with provided email address
+    const user = await User.findOne({ email: email });
 
     if (!user) {
       res.status(401).send({ message: 'Invalid credentials', status: 401 });
@@ -57,22 +56,18 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     const passwordIsValid = await bcrypt.compare(password, user.password);
 
     if (passwordIsValid) {
-      // send JWT token for authentification if password matches 
-      console.log('password is valid')
-      const token = jwt.sign(
-        { userId: user._id},
-        tokenKey, 
-        {
-          expiresIn: "2h",
-        }
-        );
-
-      console.log(token)
-      res.status(200)
-      res.send({token})
+      // send JWT token for authentification if password matches
+      console.log('password is valid');
+      const token = jwt.sign({ userId: user._id }, tokenKey, {
+        expiresIn: '2h',
+      });
+      user.token = token;
+      console.log(token);
+      res.status(200);
+      res.send(user);
     }
   } catch (error) {
-    console.log(`${username} was not found`)
-    res.status(500)
+    console.log(`${username} was not found`);
+    res.status(500);
   }
 };
