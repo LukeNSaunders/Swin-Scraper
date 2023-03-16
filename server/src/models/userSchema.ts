@@ -1,21 +1,28 @@
-import mongoose from "./db";
+import mongoose from './db';
+
+interface UserAttributes {
+  username: string;
+  email: string;
+  password: string;
+}
 
 const UserSchema = new mongoose.Schema({
   username: {
-    type:String,
-    required:true, 
+    type: String,
+    required: true,
   },
   email: {
     type: String,
-    required:true
+    required: true,
   },
   password: {
     type: String,
-    required:true, 
-  }
-})
+    required: true,
+  },
+});
 
-const Users = mongoose.model("Users", UserSchema);
+export interface UserDocument extends mongoose.Document, UserAttributes {}
 
-export default Users 
+const User = mongoose.model<UserDocument>('Users', UserSchema);
 
+export default User;
