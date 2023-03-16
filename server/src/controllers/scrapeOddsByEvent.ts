@@ -1,4 +1,4 @@
-import scrapeHorseInfo from '../scrapers/horseInfo';
+import {scrapeHorseInfo }from '../scrapers/horseInfo';
 import { Request, Response } from 'express';
 
 export const scrapeOddsByEvent = async (req: Request, res: Response) => {
