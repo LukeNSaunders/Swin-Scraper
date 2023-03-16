@@ -1,15 +1,19 @@
 import { Router } from 'express';
 import { scrapeOddsByEvent } from './controllers/scrapeOddsByEvent';
-import { registerUser } from './controllers/userController';
+import { registerUser, loginUser } from './controllers/userController';
 import { authenticateToken } from './middleware/auth';
 
-// Initialise router 
+// Initialise router
 
 const router: Router = Router();
 
-// Define routes 
+// Scraper routes
 
 router.post('/odds', authenticateToken, scrapeOddsByEvent);
-router.post('/register', registerUser)
+
+// User routes
+
+router.post('/register', registerUser);
+router.post('/login', loginUser);
 
 export default router;
