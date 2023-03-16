@@ -59,9 +59,10 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       const token = jwt.sign({ userId: user._id }, tokenKey, {
         expiresIn: '2h',
       });
+      console.log(token)
       user.token = token;
       res.status(200);
-      res.send(user);
+      res.send({ token });
     }
   } catch (error) {
     console.log(`${username} was not found`);

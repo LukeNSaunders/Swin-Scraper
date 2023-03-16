@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import { createPage, closeBrowser } from './puppeteerUtils';
 
 type HorseData = {
@@ -48,23 +47,41 @@ export async function scrapeHorseInfo(eventUrl: string): Promise<HorseData[]> {
 
 // event Links that will be used on client side for onClick and data fetching 
 
-export async function scrapeEventLinks(pageURL: string) : Promise<string[]>{
+export async function scrapeEventInfo(pageURL: string) : Promise<string[]>{
 
   const page = await createPage()
   await page.goto(pageURL);
 
   // query page for href elements that have <a> tag as closest parent element 
-  const eventLinks = await page.evaluate(() => {
+  const eventInfo = await page.evaluate(() => {
     const linkElements = document.querySelectorAll('a[href] > div.race-name')
     const links = Array.from(linkElements, linkElement => linkElement.closest('a')?.getAttribute('href'));
-    return links as string[];
-  });
+
+  
+    const eventNameAndTime= Array.from(document.querySelectorAll('.race-name-time')).map((eventInfo) =>
+    eventInfo.textContent!.trim()
+  );
+
+  const eventsData = links.map((link, index) => ({
+    eventLink: link,
+    eventInfo: eventNameAndTime[index]
+  }));
+  return eventsData;
+});
 
   await closeBrowser()
 
-  return eventLinks
+  let retryCount = 0;
+
+  if (eventInfo.length === 0 && retryCount < 5) {
+    retryCount++;
+    console.log('in recursive call', eventInfo);
+    return scrapeEventInfo(pageURL)
+  } else {
+    return eventInfo as any;
+  }
 }
 
-scrapeEventLinks('https://sports.bwin.com/en/sports/horse-racing-29/today').then((links) => {
-  console.log(links);
-});
+// scrapeEventInfo('https://sports.bwin.com/en/sports/horse-racing-29/today').then((links) => {
+//   console.log(links);
+// });
