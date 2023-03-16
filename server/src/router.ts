@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { scrapeOddsByEvent } from './controllers/scrapeOddsByEvent';
 import { registerUser, loginUser } from './controllers/userController';
-import { authenticateToken } from './middleware/auth';
+import { authenticateUser } from './middleware/auth';
 
 // Initialise router
 
@@ -9,7 +9,7 @@ const router: Router = Router();
 
 // Scraper routes
 
-router.post('/odds', authenticateToken, scrapeOddsByEvent);
+router.post('/odds', authenticateUser, scrapeOddsByEvent);
 
 // User routes
 

@@ -4,6 +4,7 @@ interface UserAttributes {
   username: string;
   email: string;
   password: string;
+  token: string;
 }
 
 const UserSchema = new mongoose.Schema({
