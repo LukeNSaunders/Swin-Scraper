@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import { createPage, closeBrowser } from './puppeteerUtils';
 
 type HorseData = {
   horseName: string;
@@ -8,8 +9,7 @@ type HorseData = {
 export async function scrapeHorseInfo(eventUrl: string): Promise<HorseData[]> {
   // initialise puppeteer scraping
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const page = await createPage()
   await page.goto(eventUrl);
 
   // query whole page for relevant classes (horse names and odds)
@@ -31,7 +31,7 @@ export async function scrapeHorseInfo(eventUrl: string): Promise<HorseData[]> {
     return formatedHorseInfo;
   });
 
-  await browser.close();
+  await closeBrowser()
 
   // recursively call scraping function until array is populated
 
@@ -49,8 +49,8 @@ export async function scrapeHorseInfo(eventUrl: string): Promise<HorseData[]> {
 // event Links that will be used on client side for onClick and data fetching 
 
 export async function scrapeEventLinks(pageURL: string) : Promise<string[]>{
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+
+  const page = await createPage()
   await page.goto(pageURL);
 
   // query page for href elements that have <a> tag as closest parent element 
@@ -60,7 +60,7 @@ export async function scrapeEventLinks(pageURL: string) : Promise<string[]>{
     return links as string[];
   });
 
-  await browser.close();
+  await closeBrowser()
 
   return eventLinks
 }
