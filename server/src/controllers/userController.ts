@@ -8,7 +8,7 @@ dotenv.config();
 
 const tokenKey: Secret = process.env.TOKEN_KEY as Secret;
 
-export const registerUser = async (req: Request,res: Response): Promise<void> => {
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password } = req.body;
 
   try {
@@ -21,9 +21,7 @@ export const registerUser = async (req: Request,res: Response): Promise<void> =>
       return;
     }
     if (password === '') {
-      res
-        .status(400)
-        .send({ message: 'Password cannot be empty', status: 400 });
+      res.status(400).send({ message: 'Password cannot be empty', status: 400 });
     }
     // hash and store password if user does not exist
     const saltRounds: number | string = await bcrypt.genSalt();
@@ -57,12 +55,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
     if (passwordIsValid) {
       // send JWT token for authentification if password matches
-      console.log('password is valid');
+
       const token = jwt.sign({ userId: user._id }, tokenKey, {
         expiresIn: '2h',
       });
       user.token = token;
-      console.log(token);
       res.status(200);
       res.send(user);
     }
