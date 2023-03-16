@@ -8,80 +8,43 @@ type HorseData = {
 export async function scrapeHorseInfo(eventUrl: string): Promise<HorseData[]> {
   // initialise puppeteer scraping
 
-  const page = await createPage()
+  const page = await createPage();
   await page.goto(eventUrl);
 
   // query whole page for relevant classes (horse names and odds)
 
-  const horseData = await page.evaluate(() => {
-    const horseNames = Array.from(document.querySelectorAll('.runner-name')).map((horseName) =>
-      horseName.textContent!.trim()
-    );
-    const horseOdds = Array.from(document.querySelectorAll('.win-market-odds')).map((horseOdds) =>
-      horseOdds.textContent!.trim()
-    );
+  const [horseNames, horseOdds] = await Promise.all([
+    page.$$eval('.runner-name', (elements) => elements.map((el) => el.textContent?.trim())),
+    page.$$eval('.win-market-odds', (elements) => elements.map((el) => el.textContent?.trim())),
+  ]);
 
-    // format scraped text content into new object
+  // format scraped text content into new object
+  await closeBrowser();
 
-    const formatedHorseInfo = horseNames.map((horseName, index) => ({
-      horseName: horseName,
-      horseOdds: horseOdds[index],
-    }));
-    return formatedHorseInfo;
-  });
-
-  await closeBrowser()
-
-  // recursively call scraping function until array is populated
-
-  let retryCount = 0;
-
-  if (horseData.length === 0 && retryCount < 5) {
-    retryCount++;
-    console.log(horseData);
-    return scrapeHorseInfo(eventUrl);
-  } else {
-    return horseData;
-  }
+  const formatedHorseInfo = horseNames.map((horseName, index) => ({
+    horseName: horseName,
+    horseOdds: horseOdds[index],
+  }));
+  return formatedHorseInfo as any;
 }
 
-// event Links that will be used on client side for onClick and data fetching 
+// event Links that will be used on client side for onClick and data fetching
 
-export async function scrapeEventInfo(pageURL: string) : Promise<string[]>{
-
-  const page = await createPage()
+export async function scrapeEventInfo(pageURL: string): Promise<string[]> {
+  const page = await createPage();
   await page.goto(pageURL);
 
-  // query page for href elements that have <a> tag as closest parent element 
-  const eventInfo = await page.evaluate(() => {
-    const linkElements = document.querySelectorAll('a[href] > div.race-name')
-    const links = Array.from(linkElements, linkElement => linkElement.closest('a')?.getAttribute('href'));
+  // query page for href elements that have <a> tag as closest parent element
 
-  
-    const eventNameAndTime= Array.from(document.querySelectorAll('.race-name-time')).map((eventInfo) =>
-    eventInfo.textContent!.trim()
-  );
+  const eventInfo = await page.$$eval('a[href] > div.race-name', (linkElements) => {
+    const links = linkElements.map((linkElement) => linkElement.closest('a')?.getAttribute('href'));
+    const eventInfo = Array.from(document.querySelectorAll('.race-name-time')).map((eventInfo) =>
+      eventInfo.textContent!.trim()
+    );
+    return links.map((link, index) => ({ eventLink: link, eventInfo: eventInfo[index] }));
+  });
 
-  const eventsData = links.map((link, index) => ({
-    eventLink: link,
-    eventInfo: eventNameAndTime[index]
-  }));
-  return eventsData;
-});
+  await closeBrowser();
 
-  await closeBrowser()
-
-  let retryCount = 0;
-
-  if (eventInfo.length === 0 && retryCount < 5) {
-    retryCount++;
-    console.log('in recursive call', eventInfo);
-    return scrapeEventInfo(pageURL)
-  } else {
-    return eventInfo as any;
-  }
+  return eventInfo as any;
 }
-
-// scrapeEventInfo('https://sports.bwin.com/en/sports/horse-racing-29/today').then((links) => {
-//   console.log(links);
-// });

@@ -5,8 +5,8 @@ import router from './router'
 const app: Express = express();
 const PORT: number = 8000;
 
-app.use(express.json())
 app.use(cors())
+app.use(express.json())
 app.use(router)
 
 
