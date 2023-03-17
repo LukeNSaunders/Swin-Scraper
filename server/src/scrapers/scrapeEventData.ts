@@ -1,8 +1,9 @@
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 
 interface EventInfo {
-  eventLink?: string | null
-  eventInfo: string;
+  eventLink?: string | null;
+  eventName: string;
+  eventTime: string 
 }
 
 export async function scrapeEventData(pageURL: string): Promise<EventInfo[]> {
@@ -14,12 +15,16 @@ export async function scrapeEventData(pageURL: string): Promise<EventInfo[]> {
   const eventInfo = await page.$$eval('a[href] > div.race-name', (linkElements) => {
     const links = linkElements.map((linkElement) => linkElement.closest('a')?.getAttribute('href'));
     const eventInfo = Array.from(document.querySelectorAll('.race-name-time')).map((eventInfo) =>
-      eventInfo.textContent!.trim()
+      eventInfo.textContent!.trim().split(' ')
     );
-    return links.map((link, index) => ({ eventLink: link, eventInfo: eventInfo[index] }));
+    return links.map((link, index) => ({
+      eventLink: link,
+      eventName: eventInfo[index][0],
+      eventTime: eventInfo[index][1],
+    }));
   });
 
   await closeBrowser();
 
-  return eventInfo ;
+  return eventInfo;
 }

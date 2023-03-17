@@ -10,12 +10,13 @@ import './App.css';
 
 export default function App(): JSX.Element {
   const [user, setUser] = useState<string[]>([]);
-  const [eventList, setEventList] = useState<{ eventLink: string; eventInfo: string }[]>([]);
+  const [eventList, setEventList] = useState<{ eventLink: string; eventName: string, eventTime : string}[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const pageURL = 'https://sports.bwin.com/en/sports/horse-racing-29/today';
 
+  console.log(eventList)
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) setIsAuthenticated(true);

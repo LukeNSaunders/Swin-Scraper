@@ -6,12 +6,14 @@ import DisplayOdds from './DisplayOdds';
 export interface DisplayEventProps {
   event: {
     eventLink: string;
-    eventInfo: string;
+    eventName: string;
+    eventTime: string
   };
 }
 
 interface EventDetails {
-  eventInfo: string;
+  eventName: string;
+  eventTime: string
   eventOdds: {
     horseName: string;
     horseOdds: string;
@@ -21,19 +23,21 @@ interface EventDetails {
 const baseURL: string = 'https://sports.bwin.com';
 
 export default function DisplayEvents({ event }: DisplayEventProps) {
-  const [eventDetails, setEventDetails] = useState<EventDetails>({ eventInfo: '', eventOdds: [] });
+  const [eventDetails, setEventDetails] = useState<EventDetails>({ eventName: '', eventOdds: [], eventTime: '' });
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { eventLink, eventInfo } = event;
+  const { eventLink, eventName, eventTime} = event;
   const { eventOdds } = eventDetails;
+
+  console.log(eventTime)
 
   const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length) {
       setIsLoading(true);
       try {
         const odds = await fetchEventOdds(`${baseURL}${eventLink}`);
-        setEventDetails({ eventInfo, eventOdds: odds });
+        setEventDetails({ eventName, eventTime, eventOdds: odds});
         setIsClicked(!isClicked);
         setIsLoading(false);
       } catch (error) {
@@ -50,7 +54,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
     setIsRefreshing(true);
     try {
       const updatedOdds = await fetchEventOdds(`${baseURL}${eventLink}`);
-      setEventDetails({ eventInfo, eventOdds: updatedOdds });
+      setEventDetails({ eventName, eventTime, eventOdds: updatedOdds });
       setIsRefreshing(false);
     } catch (error) {
       console.log(error);
@@ -60,7 +64,8 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   return (
     <div>
       <div className='event-card'>
-        <h2 onClick={handleDisplayOdds}>{eventInfo}</h2>
+        <h2 onClick={handleDisplayOdds}>{eventName}</h2>
+        <p>{eventTime}</p>
         {isLoading ? (
           <div className='loading-spinner'></div>
         ) : (
