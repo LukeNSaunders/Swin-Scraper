@@ -9,18 +9,19 @@
   border-radius: 10px;
   width: 1000px;
   padding: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.event-card a {
+.event-card p {
   font-size: 20px;
   font-weight: bold;
   color: #333;
   text-decoration: none;
 }
 
-.event-card a:hover {
+.event-card:hover {
+  cursor: pointer;
   color: #0077cc;
 }

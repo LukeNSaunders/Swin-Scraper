@@ -1,8 +1,25 @@
-import React from 'react'
+import React from 'react';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function DisplayOdds({eventOdds} : any) {
+interface DisplayOddsProps {
+  eventOdds: any;
+}
+
+export default function DisplayOdds({eventOdds} : DisplayOddsProps): JSX.Element {
+
   console.log(eventOdds)
+
+  if (!eventOdds || !eventOdds.length) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div></div>
-  )
+    <div>
+      WORKING!!!
+      {eventOdds.map((odds:any) => (
+        <p>{odds.horseName} {odds.horseOdds}</p>
+      ))}
+    </div>
+  );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import DisplayOdds from './components/DisplayOdds';
 import { fetchRacingEvents } from './utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
