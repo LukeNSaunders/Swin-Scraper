@@ -1,14 +1,20 @@
-import puppeteer, {Page} from "puppeteer";
+import puppeteer, { Browser, Page } from "puppeteer";
 
-export async function createPage() : Promise<Page> {
-  const browser = await puppeteer.launch({
-    headless:true,
-  })
-  const page = await browser.newPage()
-  return page 
+let browser: Browser | undefined;
+
+export async function createPage(): Promise<Page> {
+  if (!browser) {
+    browser = await puppeteer.launch({
+      headless: true,
+    });
+  }
+  const page = await browser.newPage();
+  return page;
 }
 
-export async function closeBrowser() : Promise<void> {
-  const browser = await puppeteer.launch()
-  await browser.close()
+export async function closeBrowser(): Promise<void> {
+  if (browser) {
+    await browser.close();
+    browser = undefined;
+  }
 }
