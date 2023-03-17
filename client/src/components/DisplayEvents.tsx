@@ -1,7 +1,6 @@
 import React from 'react';
 import { fetchEventOdds } from '../utils/apiService';
-import { useState, useEffect } from 'react';
-import { useNavigate, NavigateOptions } from 'react-router-dom';
+import { useState } from 'react';
 import DisplayOdds from './DisplayOdds';
 
 export interface DisplayEventProps {
@@ -10,20 +9,27 @@ export interface DisplayEventProps {
     eventInfo: string;
   };
 }
-const baseURL = 'https://sports.bwin.com';
+
+interface EventDetails {
+  eventInfo: string;
+  eventOdds: {
+    horseName: string;
+    horseOdds: string;
+  }[];
+}
+
+const baseURL: string = 'https://sports.bwin.com';
 
 export default function DisplayEvents({ event }: DisplayEventProps) {
-  const [eventDetails, setEventDetails] = useState<any>({});
-  const [eventOdds, setEventOdds] = useState<any>([]);
+  const [eventDetails, setEventDetails] = useState<EventDetails>({ eventInfo: '', eventOdds: [] });
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { eventLink, eventInfo } = event;
-
-  console.log(event);
-  console.log(eventInfo);
+  const { eventOdds } = eventDetails;
 
   const handleClick = async () => {
-    if (!isClicked && !eventDetails.eventOdds) {
+    if (!isClicked && !eventOdds.length) {
       setIsLoading(true);
       try {
         const odds = await fetchEventOdds(`${baseURL}${eventLink}`);
@@ -32,27 +38,46 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
         setIsLoading(false);
       } catch (error) {
         console.log(error);
-      } 
+      }
     } else {
       setIsClicked(!isClicked);
     }
   };
 
   console.log(eventDetails);
-  console.log(isClicked);
 
-  console.log(eventOdds);
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      const updatedOdds = await fetchEventOdds(`${baseURL}${eventLink}`);
+      setEventDetails({ eventInfo, eventOdds: updatedOdds });
+      setIsRefreshing(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
-    <div className='event-card' onClick={handleClick}>
-      <p>{eventInfo}</p>
-      {isLoading ? (
-        <div className='loading-spinner'>Loading...</div>
-      ) : (
-        isClicked && <DisplayOdds eventOdds={eventDetails.eventOdds} />
-      )}
+      <div className='event-card'>
+        <h2 onClick={handleClick}>{eventInfo}</h2>
+        {isLoading ? (
+          <div className='loading-spinner'></div>
+        ) : (
+          isClicked && (
+            <div>
+              {!isRefreshing ? (
+                <button className='refresh-button' onClick={handleRefresh}>
+                  Refresh Odds
+                </button>
+              ) : (
+                <div className='loading-spinner'></div>
+              )}
+              <DisplayOdds eventOdds={eventDetails.eventOdds} />
+            </div>
+          )
+        )}
+      </div>
     </div>
-  </div>
   );
 }

@@ -1,34 +1,44 @@
-import React from 'react'
-import { loginUser } from '../utils/apiService'
-import { useState } from 'react'
+import React from 'react';
+import { loginUser } from '../utils/apiService';
+import { useState } from 'react';
 import { ChangeEvent } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
-export default function Login() {
+interface LoginProps {
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const navigate = useNavigate()
+export default function Login({ setIsAuthenticated }: LoginProps) {
+  const navigate = useNavigate();
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const loginData = {email, password}
-    const response = await loginUser(loginData)
-    if (response) {
-      console.log(response)
-      console.log('hello')
-      localStorage.setItem('token', response.token)
-      navigate('/dashboard')
+    try {
+      const loginData = { email, password };
+      const response = await loginUser(loginData);
+      if (response.status === 401 || response.status === 400) {
+        alert(`Invalid credentials`);
+      }
+      if (response && response.token) {
+        console.log(response.token);
+        localStorage.setItem('token', response.token);
+        setIsAuthenticated(true);
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
-  const handleEmail= (e: ChangeEvent<HTMLInputElement>) => {
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -36,47 +46,44 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const moveToRegister = () => {
-    navigate("/register");
+  const navigateToRegister = () => {
+    navigate('/register');
   };
 
   return (
-    <div className="babble-island">
-      <section className="login">
-        <h1 className="title">SCRAPER</h1>
+    <div className='babble-island'>
+      <section className='login'>
+        <h1 className='title'>SCRAPER</h1>
 
         <br></br>
 
         <h2>Login</h2>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <input
-            type="text"
-            placeholder="Email"
-            name="email"
+            type='text'
+            placeholder='Email'
+            name='email'
             value={email}
             onChange={handleEmail}
           />
           <br></br>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value ={password}
+            type='password'
+            placeholder='Password'
+            name='password'
+            value={password}
             onChange={handlePassword}
           />
           <br></br>
-          <button
-            className="form-submit"
-            type="submit"
-          >
+          <button className='form-submit' type='submit'>
             &nbsp;Login&nbsp;
           </button>
         </form>
         <p>Don't have an account? Register here</p>
-        <button className="form-submit" onClick={moveToRegister}>
+        <button className='form-submit' onClick={navigateToRegister}>
           Register
         </button>
       </section>
     </div>
-  )
+  );
 }
