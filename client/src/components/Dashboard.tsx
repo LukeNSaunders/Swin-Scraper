@@ -21,9 +21,7 @@ export default function Dashboard({ eventList, handleLogout }: EventListProps) {
           <button onClick={handleLogout}>LOGOUT</button>
         </div>
       </div>
-      <div>
         {eventList && eventList.map((event, index) => <DisplayEvents key={index} event={event} />)}
-      </div>
     </div>
   );
 }

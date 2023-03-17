@@ -28,20 +28,20 @@ export default function App(): JSX.Element {
   useEffect(() => {
     const storedData = localStorage.getItem('racingEventData');
 
-    if (storedData) {
-      setEventList(JSON.parse(storedData));
-    } else {
+    // if (storedData) {
+    //   setEventList(JSON.parse(storedData));
+    // } else {
       fetchRacingEvents(pageURL).then((data) => {
         if (data) {
           setEventList(data);
-          localStorage.setItem('racingEventData', JSON.stringify(data));
+          // localStorage.setItem('racingEventData', JSON.stringify(data));
         }
       });
-    }
+    // }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     setIsAuthenticated(false);
   };
 
