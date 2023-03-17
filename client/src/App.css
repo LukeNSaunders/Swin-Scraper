@@ -12,6 +12,11 @@
 
 .event-card {
   /* border: 1px solid #ccc; */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   text-align: center;
   font-size: 30px;
   border-radius: 10px;
@@ -23,13 +28,14 @@
 }
 
 .event-card p {
-  font-size: 20px;
+  font-size: 25px;
   color: #ffffff;
   text-decoration: none;
 }
 
 .event-card:hover {
   cursor: pointer;
+  scale: 1.05;
 }
 
 .loading-spinner::before {

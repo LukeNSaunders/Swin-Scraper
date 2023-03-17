@@ -1,5 +1,6 @@
-import {scrapeHorseInfo, scrapeEventInfo}from '../scrapers/horseInfo';
+import { scrapeAllHorseInfo } from '../scrapers/scrapeHorseData';
 import { Request, Response } from 'express';
+import { scrapeEventData } from '../scrapers/scrapeEventData';
 
 export const scrapeOddsByEvent = async (req: Request, res: Response) => {
 
@@ -9,7 +10,7 @@ export const scrapeOddsByEvent = async (req: Request, res: Response) => {
     if (!eventURL) {
       return res.status(400).send('Please provide valid URL');
     }
-    const data = await scrapeHorseInfo(eventURL);
+    const data = await scrapeAllHorseInfo(eventURL);
     console.log(data)
     res.status(201);
     res.json(data);
@@ -23,7 +24,7 @@ export const scrapeEvents = async (req:Request, res:Response) => {
   
   try {
     const {pageURL} = req.body
-    const data = await(scrapeEventInfo(pageURL))
+    const data = await(scrapeEventData(pageURL))
     console.log(data)
     res.status(201);
     res.json(data);

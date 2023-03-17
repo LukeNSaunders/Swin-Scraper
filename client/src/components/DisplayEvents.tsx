@@ -28,7 +28,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   const { eventLink, eventInfo } = event;
   const { eventOdds } = eventDetails;
 
-  const handleClick = async () => {
+  const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length) {
       setIsLoading(true);
       try {
@@ -46,7 +46,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
 
   console.log(eventDetails);
 
-  const handleRefresh = async () => {
+  const handleRefreshOdds = async () => {
     setIsRefreshing(true);
     try {
       const updatedOdds = await fetchEventOdds(`${baseURL}${eventLink}`);
@@ -60,14 +60,14 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   return (
     <div>
       <div className='event-card'>
-        <h2 onClick={handleClick}>{eventInfo}</h2>
+        <h2 onClick={handleDisplayOdds}>{eventInfo}</h2>
         {isLoading ? (
           <div className='loading-spinner'></div>
         ) : (
           isClicked && (
             <div>
               {!isRefreshing ? (
-                <button className='refresh-button' onClick={handleRefresh}>
+                <button className='refresh-button' onClick={handleRefreshOdds}>
                   Refresh Odds
                 </button>
               ) : (
