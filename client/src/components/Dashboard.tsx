@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DisplayEvents from './DisplayEvents';
 
 export interface EventListProps {
   eventList: {
-    eventLink: string;
+    eventUrl: string;
     eventName: string;
     eventTime: string;
   }[];
@@ -11,6 +11,14 @@ export interface EventListProps {
 }
 
 export default function Dashboard({ eventList, handleLogout }: EventListProps) {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+  if(eventList.length > 0) {
+    setIsLoading(false)
+  }
+}, [eventList])
+
   console.log(eventList);
 
   return (
@@ -21,7 +29,13 @@ export default function Dashboard({ eventList, handleLogout }: EventListProps) {
           <button onClick={handleLogout}>LOGOUT</button>
         </div>
       </div>
-        {eventList && eventList.map((event, index) => <DisplayEvents key={index} event={event} />)}
+      {isLoading ? (
+        <div className='loading-spinner'>
+          <h2>Loading Next Races...</h2>
+        </div>
+      ) : (
+        eventList && eventList.map((event, index) => <DisplayEvents key={index} event={event} />)
+      )}
     </div>
   );
 }

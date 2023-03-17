@@ -4,6 +4,7 @@ import jwt, { Secret } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Request, Response } from 'express';
 
+
 dotenv.config();
 
 const tokenKey: Secret = process.env.TOKEN_KEY as Secret;
@@ -39,19 +40,21 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
   }
 };
 
-export const loginUser = async (req: Request, res: Response): Promise<void> => {
+
+export const loginUser = async (req: Request, res: Response) : Promise <void> => {
   const { username, email, password } = req.body;
   try {
     // find user in database with provided email address
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      res.status(401).send({ message: 'Invalid credentials', status: 401 });
-      return;
+       res.status(401).send({ message: 'Invalid credentials', status: 401 });
+       return
     }
 
-    // compare provided password with hashed password in database
     const passwordIsValid = await bcrypt.compare(password, user.password);
+
+    // compare provided password with hashed password in database
 
     if (passwordIsValid) {
       // send JWT token for authentification if password matches
@@ -59,10 +62,12 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       const token = jwt.sign({ userId: user._id }, tokenKey, {
         expiresIn: '2h',
       });
-      console.log(token)
       user.token = token;
-      res.status(200);
-      res.send({ token });
+      res.status(200).send({ message: 'Authentication successful', status: 200, token });
+      return;
+    } else {
+      res.status(409).send({ message: 'Invalid password', status: 409 });
+      return;
     }
   } catch (error) {
     console.log(`${username} was not found`);

@@ -41,9 +41,9 @@
   max-width: 1000px;
   margin: auto;
   margin-bottom: 25px;
-
-  
-
+}
+.win-odds {
+  color: #fccc00;
 }
 
 /* .event-card-info {
@@ -66,13 +66,19 @@
   text-decoration: none;
 }
 
+.event-card h3 {
+  font-size: 25px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .event-card:hover {
   cursor: pointer;
   scale: 1.05;
 }
 
 .loading-spinner::before {
-  content: "Loading latest odds...";
+  /* content: "Loading latest odds..."; */
   display: block;
   font-size: 16px;
   text-align: center;
@@ -89,8 +95,12 @@
   border-top-color: #fccc00;
   animation: spin 0.8s ease-in-out infinite;
 }
+
+.loading-spinner p {
+  font-size: 20px;
+}
 .refresh-button {
-  font-size: 15px;
+  font-size: 20px;
   color: #000000;
 }
 

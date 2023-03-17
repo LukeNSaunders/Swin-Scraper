@@ -1,8 +1,9 @@
 import React from 'react';
 import { loginUser } from '../utils/apiService';
 import { useState } from 'react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const initialState = {
   email: '',
@@ -19,16 +20,15 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const loginData = { email, password };
       const response = await loginUser(loginData);
-      if (response.status === 401 || response.status === 400) {
-        alert(`Invalid credentials`);
+      if (response.status === 401 || response.status === 400 || response.status === 409) {
+        alert(`${response.message}`);
       }
       if (response && response.token) {
-        console.log(response.token);
         localStorage.setItem('token', response.token);
         setIsAuthenticated(true);
         navigate('/dashboard');
@@ -36,8 +36,10 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
     } catch (error) {
       console.log(error);
     }
+    setEmail('')
+    setPassword('')
   };
-
+  
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -51,9 +53,9 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
   };
 
   return (
-    <div className='babble-island'>
-      <section className='login'>
-        <h1 className='title'>SCRAPER</h1>
+    <div className='login-container'>
+      <section className='lOGIN'>
+        <h1 className='title'>SWIN BET</h1>
 
         <br></br>
 

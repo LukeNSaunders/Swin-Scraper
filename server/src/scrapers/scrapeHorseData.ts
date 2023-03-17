@@ -21,15 +21,17 @@ function formatHorseInfo(horseNames: string[], horseOdds: string[]): HorseData[]
   }));
 }
 
-function removeDuplicateHorseInfo(formattedHorseInfo: HorseData[]): HorseData[] {
+function removeUnwantedHorseInfo(formattedHorseInfo: HorseData[]): HorseData[] {
   const uniqueHorseInfo: HorseData[] = [];
   formattedHorseInfo.forEach((horse) => {
+    if (!horse.horseName.toLowerCase().includes('favourite')) {
     const existingHorse = uniqueHorseInfo.find(
       (uniqueHorse) => uniqueHorse.horseName === horse.horseName
     );
     if (!existingHorse) {
       uniqueHorseInfo.push(horse);
     }
+  }
   });
   return uniqueHorseInfo;
 }
@@ -39,7 +41,7 @@ export async function scrapeAllHorseInfo(eventUrl: string): Promise<HorseData[]>
   await page.goto(eventUrl);
   const [horseNames, horseOdds] = await scrapeHorseNamesAndOdds(page);
   const formattedHorseInfo = formatHorseInfo(horseNames, horseOdds);
-  const uniqueHorseInfo = removeDuplicateHorseInfo(formattedHorseInfo);
+  const uniqueHorseInfo = removeUnwantedHorseInfo(formattedHorseInfo);
   await closeBrowser();
   return uniqueHorseInfo ;
 }
