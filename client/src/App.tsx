@@ -1,34 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import Register from './components/Register';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import DisplayOdds from './components/DisplayOdds';
+import { fetchRacingEvents } from './utils/apiService';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App(): JSX.Element {
+  const [user, setUser] = useState<string[]>([]);
+  const [eventList, setEventList] = useState<{ eventLink: string; eventInfo: string }[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const pageURL = 'https://sports.bwin.com/en/sports/horse-racing-29/today';
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) setIsAuthenticated(true);
+    setIsLoading(false);
+  }, []);
+
+  console.log(isAuthenticated);
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('racingEventData');
+
+    if (storedData) {
+      setEventList(JSON.parse(storedData));
+    } else {
+      fetchRacingEvents(pageURL).then((data) => {
+        if (data) {
+          setEventList(data);
+          localStorage.setItem('racingEventData', JSON.stringify(data));
+        }
+      });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className='App'>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route
+            path='/dashboard'
+            element={
+              <PrivateRoute
+                isAuthenticated={isAuthenticated}
+                path='/dashboard'
+                element={<Dashboard eventList={eventList} handleLogout={handleLogout} />}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
-
-export default App
