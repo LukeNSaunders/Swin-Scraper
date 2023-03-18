@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DisplayEvents from './DisplayEvents';
+import './Dashboard.css';
 
 export interface EventListProps {
   eventList: {
@@ -11,18 +12,18 @@ export interface EventListProps {
 }
 
 export default function Dashboard({ eventList, handleLogout }: EventListProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-  if(eventList.length > 0) {
-    setIsLoading(false)
-  }
-}, [eventList])
+    if (eventList.length > 0) {
+      setIsLoading(false);
+    }
+  }, [eventList]);
 
   console.log(eventList);
 
   return (
-    <div className='container'>
+    <div className='page-container'>
       <div className='header'>
         <h1>UPCOMING RACES</h1>
         <div className='logout-button'>
@@ -34,7 +35,12 @@ export default function Dashboard({ eventList, handleLogout }: EventListProps) {
           <h2>Loading Next Races...</h2>
         </div>
       ) : (
-        eventList && eventList.map((event, index) => <DisplayEvents key={index} event={event} />)
+        <div className='event-card-container'>
+          {eventList &&
+            eventList.map((event, index) => {
+              return <DisplayEvents key={index} event={event} />;
+            })}
+        </div>
       )}
     </div>
   );

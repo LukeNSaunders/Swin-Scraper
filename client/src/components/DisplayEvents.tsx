@@ -1,7 +1,7 @@
-import React from 'react';
 import { fetchEventOdds } from '../utils/apiService';
 import { useState } from 'react';
 import DisplayOdds from './DisplayOdds';
+import './DisplayEvents.css'
 
 export interface DisplayEventProps {
   event: {
@@ -27,22 +27,23 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { eventUrl, eventName, eventTime} = event;
   const { eventOdds } = eventDetails;
 
 
   const handleDisplayOdds = async () => {
-    if (!isClicked && !eventOdds.length) {
+    if (!isClicked && !eventOdds.length && !isLoading) {
       setIsLoading(true);
       try {
         const odds = await fetchEventOdds(`${baseURL}${eventUrl}`);
-        if(odds.length) {
-          setEventDetails({ eventName, eventTime, eventOdds: odds});
-          setIsClicked(!isClicked);
+        if (odds.length) {
+          setEventDetails({ eventName, eventTime, eventOdds: odds });
+          setIsClicked(true);
           setIsLoading(false);
         } else {
-          setIsLoading(false)
           handleDisplayOdds()
+          setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -51,6 +52,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
       setIsClicked(!isClicked);
     }
   };
+  
 
   const handleRefreshOdds = async () => {
     setIsRefreshing(true);
@@ -65,7 +67,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
 
   return (
     <div>
-      <div className={`event-card${isClicked? ' expanded' : ''}`}>
+      <div className='event-card'>
         <span><h2 onClick={handleDisplayOdds}>{eventName}</h2></span>
         <span><p>{eventTime}</p></span>
         {isLoading ? (
