@@ -4,10 +4,8 @@ Swin helps you collect data from a bookmaker and visualise horse racing events o
 
 ## Screenshots
 
-
   <img src="client/src/assets/login.png" width = 500 /> <img src="client/src/assets/register.png" width = 500 />
   <img src="client/src/assets/races.png" width = 500 /> <img src="client/src/assets/odds.png" width = 500 />
-
 
 ## Getting started
 
