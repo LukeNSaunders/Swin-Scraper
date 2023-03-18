@@ -9,6 +9,7 @@ export async function createPage(): Promise<Page> {
     });
   }
   const page = await browser.newPage();
+  console.log(page)
   return page;
 }
 
@@ -25,6 +26,12 @@ export async function closeBrowser(): Promise<void> {
     }
   }
 }
+
+
+// export async function closeBrowser() : Promise<void> {
+//   const browser = await puppeteer.launch()
+//   await browser.close()
+// }
 
 
 

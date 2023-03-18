@@ -1,4 +1,3 @@
-import { Browser } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 
 export interface EventInfo {

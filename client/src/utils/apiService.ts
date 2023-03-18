@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8000';
+const baseURL : string = 'http://localhost:8000';
 
 // LOGIN 
 
@@ -38,17 +38,16 @@ export const registerUser = async (userData: any) => {
 
 // FETCH HORSE RACING EVENTS 
 
-export const fetchRacingEvents = async (pageURL:any) => {
+export const fetchRacingEvents = async (pageUrl:any) => {
   try {
     const response = await fetch(`${baseURL}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({pageURL: pageURL}),
+      body: JSON.stringify({pageUrl: pageUrl}),
     
     });
-    console.log(response)
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -71,7 +70,6 @@ export const fetchEventOdds = async (eventUrl:any) => {
       body: JSON.stringify({eventUrl: eventUrl}),
     
     });
-    console.log('in the fetch event Odds API service', response)
     const data = await response.json()
     return data 
   } catch (error) {

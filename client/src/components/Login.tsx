@@ -5,10 +5,6 @@ import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const initialState = {
-  email: '',
-  password: '',
-};
 
 interface LoginProps {
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -65,6 +61,7 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
             type='text'
             placeholder='Email'
             name='email'
+            autoComplete='email'
             value={email}
             onChange={handleEmail}
           />
@@ -73,6 +70,7 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
             type='password'
             placeholder='Password'
             name='password'
+            autoComplete='current-password'
             value={password}
             onChange={handlePassword}
           />

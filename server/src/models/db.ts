@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
 
-const uri = 'mongodb://localhost:27017/swp-scraper'
+dotenv.config()
 
-mongoose.set('strictQuery', true);
+const uri : string | undefined = process.env.MONGODB_URI
+
+mongoose.set('strictQuery', false);
 
 const connectMongo = async () => {
   try {
-    await mongoose.connect(uri);
+    if (uri) await mongoose.connect(uri);
     console.log('Successfully connected to the database !');
   } catch (error) {
     console.log('ERROR', error);

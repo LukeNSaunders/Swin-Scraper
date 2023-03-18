@@ -19,13 +19,13 @@ body {
   background-color: #141414;
   color: white;
   min-width: 320px;
-  min-height: 100vh;
+  min-height:fit-content;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #141414;
   }
   a:hover {
     color: #747bff;
