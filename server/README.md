@@ -17,7 +17,8 @@
 
 2. Install dependencies
 
-   npm install
+```bash
+  npm install
 ```
 ## Configuration 
 
