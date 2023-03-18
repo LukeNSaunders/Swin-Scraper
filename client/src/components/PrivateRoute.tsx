@@ -8,6 +8,7 @@ export interface PrivateRouteProps {
 
 export default function PrivateRoute({ element, isAuthenticated }: PrivateRouteProps) {
   console.log(isAuthenticated)
+  console.log('I am passing through the Dashboard Private Route')
   return isAuthenticated ? (
     element
   ) : (

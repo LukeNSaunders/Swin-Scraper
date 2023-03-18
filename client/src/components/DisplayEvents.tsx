@@ -5,13 +5,15 @@ import DisplayOdds from './DisplayOdds';
 
 export interface DisplayEventProps {
   event: {
-    eventLink: string;
-    eventInfo: string;
+    eventUrl: string;
+    eventName: string;
+    eventTime: string
   };
 }
 
 interface EventDetails {
-  eventInfo: string;
+  eventName: string;
+  eventTime: string
   eventOdds: {
     horseName: string;
     horseOdds: string;
@@ -21,21 +23,27 @@ interface EventDetails {
 const baseURL: string = 'https://sports.bwin.com';
 
 export default function DisplayEvents({ event }: DisplayEventProps) {
-  const [eventDetails, setEventDetails] = useState<EventDetails>({ eventInfo: '', eventOdds: [] });
+  const [eventDetails, setEventDetails] = useState<EventDetails>({ eventName: '', eventOdds: [], eventTime: '' });
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { eventLink, eventInfo } = event;
+  const { eventUrl, eventName, eventTime} = event;
   const { eventOdds } = eventDetails;
 
-  const handleClick = async () => {
+
+  const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length) {
       setIsLoading(true);
       try {
-        const odds = await fetchEventOdds(`${baseURL}${eventLink}`);
-        setEventDetails({ eventInfo, eventOdds: odds });
-        setIsClicked(!isClicked);
-        setIsLoading(false);
+        const odds = await fetchEventOdds(`${baseURL}${eventUrl}`);
+        if(odds.length) {
+          setEventDetails({ eventName, eventTime, eventOdds: odds});
+          setIsClicked(!isClicked);
+          setIsLoading(false);
+        } else {
+          setIsLoading(false)
+          handleDisplayOdds()
+        }
       } catch (error) {
         console.log(error);
       }
@@ -44,13 +52,11 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
     }
   };
 
-  console.log(eventDetails);
-
-  const handleRefresh = async () => {
+  const handleRefreshOdds = async () => {
     setIsRefreshing(true);
     try {
-      const updatedOdds = await fetchEventOdds(`${baseURL}${eventLink}`);
-      setEventDetails({ eventInfo, eventOdds: updatedOdds });
+      const updatedOdds = await fetchEventOdds(`${baseURL}${eventUrl}`);
+      setEventDetails({ eventName, eventTime, eventOdds: updatedOdds });
       setIsRefreshing(false);
     } catch (error) {
       console.log(error);
@@ -59,15 +65,16 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
 
   return (
     <div>
-      <div className='event-card'>
-        <h2 onClick={handleClick}>{eventInfo}</h2>
+      <div className={`event-card${isClicked? ' expanded' : ''}`}>
+        <span><h2 onClick={handleDisplayOdds}>{eventName}</h2></span>
+        <span><p>{eventTime}</p></span>
         {isLoading ? (
-          <div className='loading-spinner'></div>
+          <div className='loading-spinner'><p>Loading latest odds...</p></div>
         ) : (
           isClicked && (
             <div>
               {!isRefreshing ? (
-                <button className='refresh-button' onClick={handleRefresh}>
+                <button className='refresh-button' onClick={handleRefreshOdds}>
                   Refresh Odds
                 </button>
               ) : (

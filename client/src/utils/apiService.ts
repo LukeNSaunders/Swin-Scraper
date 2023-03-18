@@ -56,7 +56,7 @@ export const fetchRacingEvents = async (pageURL:any) => {
   }
 };
 
-export const fetchEventOdds = async (eventURL:any) => {
+export const fetchEventOdds = async (eventUrl:any) => {
   const token = localStorage.getItem('token');
 
   if(!token) return; 
@@ -68,7 +68,7 @@ export const fetchEventOdds = async (eventURL:any) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({eventURL: eventURL}),
+      body: JSON.stringify({eventUrl: eventUrl}),
     
     });
     console.log('in the fetch event Odds API service', response)

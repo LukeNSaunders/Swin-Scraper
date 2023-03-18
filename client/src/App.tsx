@@ -3,14 +3,17 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import DisplayOdds from './components/DisplayOdds';
+import { UserProps } from './components/Register';
 import { fetchRacingEvents } from './utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 export default function App(): JSX.Element {
-  const [user, setUser] = useState<string[]>([]);
-  const [eventList, setEventList] = useState<{ eventLink: string; eventInfo: string }[]>([]);
+  const [user, setUser] = useState<UserProps[]>([]);
+  const [eventList, setEventList] = useState<
+    { eventUrl: string; eventName: string; eventTime: string }[]
+  >([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -22,25 +25,16 @@ export default function App(): JSX.Element {
     setIsLoading(false);
   }, []);
 
-  console.log(isAuthenticated);
-
   useEffect(() => {
-    const storedData = localStorage.getItem('racingEventData');
-
-    if (storedData) {
-      setEventList(JSON.parse(storedData));
-    } else {
-      fetchRacingEvents(pageURL).then((data) => {
-        if (data) {
-          setEventList(data);
-          localStorage.setItem('racingEventData', JSON.stringify(data));
-        }
-      });
-    }
+    fetchRacingEvents(pageURL).then((data) => {
+      if (data) {
+        setEventList(data);
+      }
+    });
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.clear();
     setIsAuthenticated(false);
   };
 
@@ -53,6 +47,7 @@ export default function App(): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path='/register' element={<Register setUser={setUser} />} />
           <Route
             path='/dashboard'
             element={
