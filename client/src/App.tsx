@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import DisplayOdds from './components/DisplayOdds';
 import { UserProps } from './components/Register';
 import { fetchRacingEvents } from './utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -17,7 +16,7 @@ export default function App(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const pageURL = 'https://sports.bwin.com/en/sports/horse-racing-29/today';
+  const pageURL : string = 'https://sports.bwin.com/en/sports/horse-racing-29/today';
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -29,9 +28,7 @@ export default function App(): JSX.Element {
     fetchRacingEvents(pageURL).then((data) => {
       if (data) {
         setEventList(data);
-        console.log(data)
       }
-      console.log(pageURL)
     });
   }, []);
 

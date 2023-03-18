@@ -20,8 +20,6 @@ export default function Dashboard({ eventList, handleLogout }: EventListProps) {
     }
   }, [eventList]);
 
-  console.log(eventList);
-
   return (
     <div className='page-container'>
       <div className='header'>

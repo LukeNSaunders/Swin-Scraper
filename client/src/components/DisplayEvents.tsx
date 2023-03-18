@@ -42,12 +42,14 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
           setIsClicked(true);
           setIsLoading(false);
         } else {
+          handleDisplayOdds()
           setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
       }
     } else {
+      console.log(isClicked)
       setIsClicked(!isClicked);
     }
   };

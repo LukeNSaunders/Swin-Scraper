@@ -40,7 +40,6 @@ const Register = ({setUser} : any )=> {
         setUser(res)
         navigate('/dashboard')
       }
-      console.log(res)
     } catch (error) {
       console.log(error)
     }
