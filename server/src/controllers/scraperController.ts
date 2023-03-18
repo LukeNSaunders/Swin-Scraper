@@ -1,5 +1,5 @@
 import { scrapeAllHorseInfo } from '../scrapers/scrapeHorseData';
-
+import { Request, Response } from 'express';
 import { scrapeEventData } from '../scrapers/scrapeEventData';
 
 export const scrapeOddsByEvent = async (req:any, res:any) => {
@@ -10,16 +10,15 @@ export const scrapeOddsByEvent = async (req:any, res:any) => {
       return res.status(400).send('Please provide valid URL');
     }
     const data = await scrapeAllHorseInfo(eventUrl);
-    console.log(data);
     res.status(201);
     res.json(data);
-  } catch (error) {
-    res.status(500);
+  } catch (error:any) {
     console.log('ERROR!', error);
+    res.status(500).json({error:error.message});
   }
 };
 
-export const scrapeEvents = async (req:any, res:any) => {
+export const scrapeEvents = async (req:Request, res:Response) => {
   try {
     const { pageURL } = req.body;
     const data = await scrapeEventData(pageURL);

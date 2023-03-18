@@ -1,6 +1,6 @@
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 
-interface EventInfo {
+export interface EventInfo {
   eventUrl?: string | null;
   eventName: string;
   eventTime: string 
