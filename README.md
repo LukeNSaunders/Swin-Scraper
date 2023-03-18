@@ -37,22 +37,21 @@ Swin is currently not deployed and requires setting up a mongoDB database to acc
   
 
 3. Replace env credentials in the env.sample file provided. 
-```bash 
 
-# Your token key used to access JWT 
-TOKEN_KEY=''
-
-```
+  ```bash
+  # Your token key used to access JWT 
+  TOKEN_KEY=''
+  ```
 
 4. Start development server
 
-```bash 
-npm start 
-```
+  ```bash 
+  npm start 
+  ```
 5. Start front end app 
-```bash 
-npm run dev 
-```
+  ```bash 
+  npm run dev 
+  ```
 
 
 ## Tech Stack
