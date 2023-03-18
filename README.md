@@ -4,6 +4,13 @@ Swin helps you collect data from a bookmaker and visualise horse racing events o
 
 ## Screenshots
 
+<p align="center">
+  <img "../client/src/assets/swinLogin.png" width = 500 />
+  <img "../client/src/assets/swinOdds.png" width = 500 />
+  <img "../client/src/assets/swinRaces.png" width = 500 />
+  <img "../client/src/assets/swinOdds.png" width = 500 />
+</p>
+
 ## Getting started
 
 Swin is currently not deployed and requires setting up a mongoDB database to access full features. More info can be found in the readme of server folder. 
