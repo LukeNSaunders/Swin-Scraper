@@ -20,8 +20,8 @@ export const scrapeOddsByEvent = async (req:any, res:any) => {
 
 export const scrapeEvents = async (req:Request, res:Response) => {
   try {
-    const { pageURL } = req.body;
-    const data = await scrapeEventData(pageURL);
+    const { pageUrl } = req.body;
+    const data = await scrapeEventData(pageUrl);
     console.log(data)
     res.status(201).json(data);
   } catch (error: any) {

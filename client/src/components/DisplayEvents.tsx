@@ -20,17 +20,17 @@ interface EventDetails {
   }[];
 }
 
-const baseURL: string = 'https://sports.bwin.com';
 
 export default function DisplayEvents({ event }: DisplayEventProps) {
   const [eventDetails, setEventDetails] = useState<EventDetails>({ eventName: '', eventOdds: [], eventTime: '' });
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  
   const { eventUrl, eventName, eventTime} = event;
   const { eventOdds } = eventDetails;
-
+  
+  const baseURL: string = 'https://sports.bwin.com';
 
   const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length && !isLoading) {
@@ -42,7 +42,6 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
           setIsClicked(true);
           setIsLoading(false);
         } else {
-          handleDisplayOdds()
           setIsLoading(false);
         }
       } catch (error) {

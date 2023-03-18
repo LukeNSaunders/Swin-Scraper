@@ -38,14 +38,14 @@ export const registerUser = async (userData: any) => {
 
 // FETCH HORSE RACING EVENTS 
 
-export const fetchRacingEvents = async (pageURL:any) => {
+export const fetchRacingEvents = async (pageUrl:any) => {
   try {
     const response = await fetch(`${baseURL}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({pageURL: pageURL}),
+      body: JSON.stringify({pageUrl: pageUrl}),
     
     });
     console.log(response)

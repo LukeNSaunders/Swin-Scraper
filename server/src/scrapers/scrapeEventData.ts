@@ -1,4 +1,3 @@
-import { Browser } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 
 export interface EventInfo {
@@ -10,6 +9,7 @@ export interface EventInfo {
 export async function scrapeEventData(pageUrl: string): Promise<EventInfo[]> {
   const page = await createPage();
   await page.goto(pageUrl);
+  console.log(pageUrl)
 
   // query page for href elements that have <a> tag as closest parent element
 

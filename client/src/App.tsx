@@ -29,7 +29,9 @@ export default function App(): JSX.Element {
     fetchRacingEvents(pageURL).then((data) => {
       if (data) {
         setEventList(data);
+        console.log(data)
       }
+      console.log(pageURL)
     });
   }, []);
 
