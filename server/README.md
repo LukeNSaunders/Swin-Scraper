@@ -7,12 +7,6 @@
 3. [Running the Application](#running-the-application)
 4. [API Endpoints](#api-endpoints)
 
-## Requirements
-
-- Node.js v14.x or higher
-- npm v6.x or higher
-- MongoDB v4.4.x or higher
-
 ## Installation
 
 1. Change to server directory:
@@ -23,11 +17,6 @@
 
 2. Install dependencies
 
-```bash
-   cd client
-   npm install
-
-   cd server
    npm install
 ```
 ## Configuration 
