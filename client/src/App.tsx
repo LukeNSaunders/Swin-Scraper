@@ -17,32 +17,20 @@ export default function App(): JSX.Element {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  console.log(user)
-
   const pageURL = 'https://sports.bwin.com/en/sports/horse-racing-29/today';
 
-  console.log(eventList);
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) setIsAuthenticated(true);
     setIsLoading(false);
   }, []);
 
-  console.log(isAuthenticated);
-
   useEffect(() => {
-    const storedData = localStorage.getItem('racingEventData');
-
-    // if (storedData) {
-    //   setEventList(JSON.parse(storedData));
-    // } else {
     fetchRacingEvents(pageURL).then((data) => {
       if (data) {
         setEventList(data);
-        // localStorage.setItem('racingEventData', JSON.stringify(data));
       }
     });
-    // }
   }, []);
 
   const handleLogout = () => {

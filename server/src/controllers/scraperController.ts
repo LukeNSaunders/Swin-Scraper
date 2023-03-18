@@ -22,6 +22,7 @@ export const scrapeEvents = async (req:Request, res:Response) => {
   try {
     const { pageURL } = req.body;
     const data = await scrapeEventData(pageURL);
+    console.log(data)
     res.status(201).json(data);
   } catch (error: any) {
     console.log('ERROR', error);

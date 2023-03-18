@@ -30,7 +30,6 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   const { eventUrl, eventName, eventTime} = event;
   const { eventOdds } = eventDetails;
 
-  console.log(eventTime)
 
   const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length) {
@@ -43,7 +42,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
           setIsLoading(false);
         } else {
           setIsLoading(false)
-          alert('failed to fetch odds')
+          handleDisplayOdds()
         }
       } catch (error) {
         console.log(error);
@@ -52,8 +51,6 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
       setIsClicked(!isClicked);
     }
   };
-
-  console.log(eventDetails);
 
   const handleRefreshOdds = async () => {
     setIsRefreshing(true);
@@ -68,7 +65,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
 
   return (
     <div>
-      <div className='event-card'>
+      <div className={`event-card${isClicked? ' expanded' : ''}`}>
         <span><h2 onClick={handleDisplayOdds}>{eventName}</h2></span>
         <span><p>{eventTime}</p></span>
         {isLoading ? (

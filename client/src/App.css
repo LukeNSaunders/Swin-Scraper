@@ -29,33 +29,21 @@
 
 .event-card {
   background-color: #252525;
+  transition: transform 0.25s ease-in-out, box-shadow 0.5s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 50px;
   display: flex;
   flex-direction: column;
-  justify-self: center;
-  text-align: center;
   font-size: 30px;
   border-radius: 10px;
   padding: 30px;
   max-width: 1000px;
   margin: auto;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 .win-odds {
   color: #fccc00;
 }
-
-/* .event-card-info {
-  display: flex;
-  flex-direction: column;
-
-  align-self: center;
-  font-size: 30px;
-  border-radius: 10px;
-  padding: 30px;
-
-} */
 .event-card h2 {
   margin:5px
 }
@@ -72,9 +60,19 @@
   text-decoration: none;
 }
 
-.event-card:hover {
+.event-card:not(.expanded):hover {
+  /* Slightly scale up the card and create the floating effect */
   cursor: pointer;
-  scale: 1.05;
+  transform: translateY(-5px) scale(1.015);
+
+  /* Increase the box-shadow for the floating appearance */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.event-card:hover {
+  
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .loading-spinner::before {
