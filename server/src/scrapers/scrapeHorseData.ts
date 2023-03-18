@@ -1,7 +1,7 @@
-import { Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 
-interface HorseData {
+export interface HorseData {
   horseName: string;
   horseOdds: string;
 };

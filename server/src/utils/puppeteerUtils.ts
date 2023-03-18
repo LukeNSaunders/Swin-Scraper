@@ -2,6 +2,10 @@ import puppeteer, { Browser, Page } from "puppeteer";
 
 let browser: Browser | undefined;
 
+export function getBrowser(): Browser | undefined {
+  return browser;
+}
+
 export async function createPage(): Promise<Page> {
   if (!browser) {
     browser = await puppeteer.launch({
@@ -14,7 +18,15 @@ export async function createPage(): Promise<Page> {
 
 export async function closeBrowser(): Promise<void> {
   if (browser) {
-    await browser.close();
-    browser = undefined;
+    try {
+      await browser.close();
+    } catch (error) {
+      console.error('Error closing the browser:', error);
+    } finally {
+      browser = undefined;
+    }
   }
 }
+
+
+
