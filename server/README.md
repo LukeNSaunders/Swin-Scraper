@@ -6,8 +6,6 @@
 2. [Configuration](#configuration)
 3. [Running the Application](#running-the-application)
 4. [API Endpoints](#api-endpoints)
-5. [Contributing](#contributing)
-6. [License](#license)
 
 ## Requirements
 
