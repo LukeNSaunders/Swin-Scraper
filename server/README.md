@@ -38,8 +38,9 @@
 
 2. Open the .env file and add the following environment variables:
 
-- `PORT`: The port on which the server will run (default: 3000)
+- `PORT`: The port on which the server will run (default: 8000)
 - `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and myserverappdb with your desired database name)
+_  `TOKEN_KEY`: Secret key used for JWT authorisation, replace "helloworld" with your desired key. 
 
 ## Running the Application
 To start the server, run:
@@ -56,5 +57,11 @@ The following API endpoints are available:
 - `POST /events`: Scrape horce racing events for a given bookmaker site. 
 - `POST /register`: Create new user in database.  
 - `POST /login`: Query database and login user. 
+
+<p align="center">
+  <img src="../client/src/assets/endpoint1.png"  width= 1000/>
+   <img src="../client/src/assets/endpoint2.png"width= 1000 />
+</p>
+
 
 
