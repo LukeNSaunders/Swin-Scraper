@@ -36,11 +36,12 @@ cd server
 npm install
 ```
 
-3. Replace env credentials in the env.sample file provided.
+3. Replace env credentials in the env.sample file provided, for example.
 
 ```bash
 Your token key used to access JWT
 TOKEN_KEY=''
+etc... 
 ```
 
 4. Start development server
