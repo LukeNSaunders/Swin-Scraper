@@ -1,8 +1,8 @@
-import { UserProps } from "../types";
+import { UserProps } from '../types/user';
 
-const baseURL : string = 'http://localhost:8000';
+const baseURL: string = 'http://localhost:8000';
 
-// LOGIN 
+// LOGIN
 
 export const loginUser = async (userData: UserProps) => {
   try {
@@ -16,11 +16,11 @@ export const loginUser = async (userData: UserProps) => {
     return await response.json();
   } catch (error) {
     console.log(error);
-    return error 
+    return error;
   }
 };
 
-// REGISTER 
+// REGISTER
 
 export const registerUser = async (userData: UserProps) => {
   try {
@@ -34,48 +34,46 @@ export const registerUser = async (userData: UserProps) => {
     return await response.json();
   } catch (error) {
     console.log(error);
-    return error 
+    return error;
   }
 };
 
-// FETCH HORSE RACING EVENTS 
+// FETCH HORSE RACING EVENTS
 
-export const fetchRacingEvents = async (pageUrl:string) => {
+export const fetchRacingEvents = async (pageUrl: string) => {
   try {
     const response = await fetch(`${baseURL}/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({pageUrl: pageUrl}),
-    
+      body: JSON.stringify({ pageUrl: pageUrl }),
     });
     return await response.json();
   } catch (error) {
     console.log(error);
-    return error 
+    return error;
   }
 };
 
-export const fetchEventOdds = async (eventUrl:any) => {
+export const fetchEventOdds = async (eventUrl: string) => {
   const token = localStorage.getItem('token');
 
-  if(!token) return; 
+  if (!token) return;
 
   try {
     const response = await fetch(`${baseURL}/odds`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({eventUrl: eventUrl}),
-    
+      body: JSON.stringify({ eventUrl: eventUrl }),
     });
-    const data = await response.json()
-    return data 
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
-    return error 
+    return error;
   }
 };

@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../utils/apiService";
-import { RegisterProps, UserProps } from "../types";
+import { RegisterProps, UserProps } from "../types/user";
 import "./Register.css";
 
 const initialState = {

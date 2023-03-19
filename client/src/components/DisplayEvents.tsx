@@ -1,25 +1,8 @@
 import { fetchEventOdds } from '../utils/apiService';
 import { useState } from 'react';
 import DisplayOdds from './DisplayOdds';
+import { DisplayEventProps, EventDetails } from '../types/event';
 import './DisplayEvents.css'
-
-export interface DisplayEventProps {
-  event: {
-    eventUrl: string;
-    eventName: string;
-    eventTime: string
-  };
-}
-
-interface EventDetails {
-  eventName: string;
-  eventTime: string
-  eventOdds: {
-    horseName: string;
-    horseOdds: string;
-  }[];
-}
-
 
 export default function DisplayEvents({ event }: DisplayEventProps) {
   const [eventDetails, setEventDetails] = useState<EventDetails>({ eventName: '', eventOdds: [], eventTime: '' });

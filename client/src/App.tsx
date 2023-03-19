@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import { RegisterProps, UserProps } from './types';
+import { UserProps } from './types/user';
 import { fetchRacingEvents } from './utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';

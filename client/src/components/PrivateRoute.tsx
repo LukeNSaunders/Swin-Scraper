@@ -1,5 +1,5 @@
 import {Navigate } from 'react-router-dom';
-import { PrivateRouteProps } from '../types';
+import { PrivateRouteProps } from '../types/route';
 
 export default function PrivateRoute({ element, isAuthenticated }: PrivateRouteProps) {
 

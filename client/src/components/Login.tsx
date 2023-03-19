@@ -2,7 +2,7 @@ import { loginUser } from '../utils/apiService';
 import { useState } from 'react';
 import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginProps } from '../types';
+import { LoginProps } from '../types/user';
 import './Login.css';
 
 export default function Login({ setIsAuthenticated }: LoginProps) {

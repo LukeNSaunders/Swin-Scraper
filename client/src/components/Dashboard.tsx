@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DisplayEvents from './DisplayEvents';
+import { EventListProps } from '../types/event';
 import './Dashboard.css';
-
-export interface EventListProps {
-  eventList: {
-    eventUrl: string;
-    eventName: string;
-    eventTime: string;
-  }[];
-  handleLogout: () => void;
-}
 
 export default function Dashboard({ eventList, handleLogout }: EventListProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
