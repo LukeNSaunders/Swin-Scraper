@@ -18,21 +18,22 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length && !isLoading) {
       setIsLoading(true);
+      let odds = []
+    while(!odds.length) {
       try {
-        const odds = await fetchEventOdds(`${baseURL}${eventUrl}`);
+        odds = await fetchEventOdds(`${baseURL}${eventUrl}`);
         if (odds.length) {
           setEventDetails({ eventName, eventTime, eventOdds: odds });
           setIsClicked(true);
           setIsLoading(false);
         } else {
-          handleDisplayOdds()
-          setIsLoading(false);
+          console.log('Failed to fetch data, trying again!')
         }
       } catch (error) {
         console.log(error);
       }
+    }
     } else {
-      console.log(isClicked)
       setIsClicked(!isClicked);
     }
   };

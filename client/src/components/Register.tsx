@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../utils/apiService";
-import { RegisterProps, UserProps } from "../types/user";
+import { UserProps } from "../types/user";
 import "./Register.css";
 
 const initialState = {
@@ -10,9 +10,10 @@ const initialState = {
   password: "",
 }; 
 
-const Register = ({setUser} : RegisterProps)=> {
+const Register = ({setUser} : any )=> {
   const navigate = useNavigate();
   const [state, setState] = useState(initialState);
+  const [exists, setExists] = useState(false);
 
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,7 +33,7 @@ const Register = ({setUser} : RegisterProps)=> {
         alert(`${res.message}`)
       } else {
         setUser(res)
-        navigate('/dashboard')
+        navigate('/')
       }
     } catch (error) {
       console.log(error)
@@ -90,6 +91,7 @@ const Register = ({setUser} : RegisterProps)=> {
             Register
           </button>
         </form>
+        {exists ? <p> User already exists. Please login</p> : "Already a user?"}
         <br></br>
         <button onClick={loginHandle} className="form-submit">
           Login
