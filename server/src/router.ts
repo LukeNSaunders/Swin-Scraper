@@ -3,6 +3,9 @@ import { scrapeOddsByEvent, scrapeEvents} from './controllers/scraperController'
 import { registerUser, loginUser } from './controllers/userController';
 import { authenticateUser } from './middleware/auth';
 
+
+
+
 // Initialise router
 
 const router: Router = Router();

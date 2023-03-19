@@ -1,10 +1,6 @@
-import { Browser, Page } from 'puppeteer';
+import { Page } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
-
-export interface HorseData {
-  horseName: string;
-  horseOdds: string;
-};
+import { HorseData } from '../returnTypes';
 
 async function scrapeHorseNamesAndOdds(page: Page): Promise<[string[], string[]]> {
   const [horseNames, horseOdds] = await Promise.all([
