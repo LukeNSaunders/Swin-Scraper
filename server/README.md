@@ -1,4 +1,4 @@
-# Server
+# SERVER
 
 ## Table of Contents
 
