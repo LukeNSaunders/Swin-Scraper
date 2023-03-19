@@ -48,7 +48,7 @@ Scrape odds for a given horse racing event from a bookmaker site.
 **Example Request:**
 ```json
  {
-  "eventUrl": "https://bookmaker.example.com/horse-racing/event-url"
+  "eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
 }
 ```
 ### POST /events
@@ -59,7 +59,7 @@ Scrape horce racing events for a given bookmaker site.
 
 ```json
 {
-  "bookmakerUrl": "https://bookmaker.example.com/horse-racing"
+  "bookmakerUrl": "https://sports.bwin.com/en/sports/horse-racing-29/today"
 }
 ```
 ### POST /register
