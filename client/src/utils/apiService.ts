@@ -1,8 +1,10 @@
+import { UserProps } from "../types";
+
 const baseURL : string = 'http://localhost:8000';
 
 // LOGIN 
 
-export const loginUser = async (userData: any) => {
+export const loginUser = async (userData: UserProps) => {
   try {
     const response = await fetch(`${baseURL}/login`, {
       method: 'POST',
@@ -20,7 +22,7 @@ export const loginUser = async (userData: any) => {
 
 // REGISTER 
 
-export const registerUser = async (userData: any) => {
+export const registerUser = async (userData: UserProps) => {
   try {
     const response = await fetch(`${baseURL}/register`, {
       method: 'POST',
@@ -38,7 +40,7 @@ export const registerUser = async (userData: any) => {
 
 // FETCH HORSE RACING EVENTS 
 
-export const fetchRacingEvents = async (pageUrl:any) => {
+export const fetchRacingEvents = async (pageUrl:string) => {
   try {
     const response = await fetch(`${baseURL}/events`, {
       method: 'POST',

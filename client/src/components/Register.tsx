@@ -1,24 +1,18 @@
 import { useState, ChangeEvent, FormEvent} from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../utils/apiService";
+import { RegisterProps, UserProps } from "../types";
 import "./Register.css";
 
 const initialState = {
   username: "",
   email: "",
   password: "",
-};
+}; 
 
-export interface UserProps {
-  username: string; 
-  email: string; 
-  password: string; 
-} 
-
-const Register = ({setUser} : any )=> {
+const Register = ({setUser} : RegisterProps)=> {
   const navigate = useNavigate();
   const [state, setState] = useState(initialState);
-  const [exists, setExists] = useState(false);
 
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -96,7 +90,6 @@ const Register = ({setUser} : any )=> {
             Register
           </button>
         </form>
-        {exists ? <p> User already exists. Please login</p> : "Already a user?"}
         <br></br>
         <button onClick={loginHandle} className="form-submit">
           Login
