@@ -31,11 +31,12 @@ cd server
 npm install
 ```
 
-3. Replace env credentials in the env.sample file provided.
+3. Replace env credentials in the env.sample file provided, for example.
 
 ```bash
 Your token key used to access JWT
 TOKEN_KEY=''
+etc... 
 ```
 
 4. Start development server
@@ -53,8 +54,8 @@ npm run dev
 ## Tech Stack
 
 - [React](https://github.com/facebook/react) - Front end library for building user interfaces.
-- [Express](https://github.com/auth0/nextjs-auth0) - Node.js Backend Framework.
-- [MongoDB](https://github.com/mongodb)(with Mongoose) - For proof of concept, a noSQL database was used initially. As the data stored becomes more complex, a transition to a relational database will be made.
+- [Express.js](https://github.com/auth0/nextjs-auth0) - Node.js Backend Framework.
+- [MongoDB](https://github.com/mongodb)(with Mongoose) - NoSQL database management system.
 - [Jest](https://github.com/facebook/jest) - Testing library.
 
 ## Developers
