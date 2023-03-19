@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import { UserProps } from './components/Register';
+import { UserProps } from './types/user';
 import { fetchRacingEvents } from './utils/apiService';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 export default function App(): JSX.Element {
-  const [user, setUser] = useState<UserProps[]>([]);
+  const [user, setUser] = useState<UserProps | null>(null);
   const [eventList, setEventList] = useState<
     { eventUrl: string; eventName: string; eventTime: string }[]
   >([]);

@@ -1,4 +1,5 @@
-import { scrapeAllHorseInfo, HorseData } from './scrapeHorseData';
+import { scrapeAllHorseInfo} from './scrapeHorseData';
+import { HorseData } from '../returnTypes';
 
 describe('scrapeAllHorseInfo', () => {
   test('returns an array of HorseData objects', async () => {

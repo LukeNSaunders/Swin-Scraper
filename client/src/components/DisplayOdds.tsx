@@ -1,19 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
-
-
-interface oddsInfo {
-  horseName: string 
-  horseOdds: string
-} 
-
-export interface DisplayOddsProps {
-  eventOdds: oddsInfo[];
-}
+import { OddsInfo, DisplayOddsProps } from '../types/event';
 
 export default function DisplayOdds({eventOdds}: DisplayOddsProps): JSX.Element {
-  const [odds, setOdds] = useState<oddsInfo[]>(eventOdds)
+  const [odds, setOdds] = useState<OddsInfo[]>(eventOdds)
 
   useEffect(() => {
     setOdds(eventOdds)

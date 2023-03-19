@@ -1,14 +1,9 @@
-import React from 'react';
 import { loginUser } from '../utils/apiService';
 import { useState } from 'react';
 import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LoginProps } from '../types/user';
 import './Login.css';
-
-
-interface LoginProps {
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 export default function Login({ setIsAuthenticated }: LoginProps) {
   const navigate = useNavigate();
