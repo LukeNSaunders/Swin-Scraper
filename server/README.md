@@ -28,7 +28,7 @@
 
 - `PORT`: The port on which the server will run (default: 8000)
 - `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and myserverappdb with your desired database name)
-_  `TOKEN_KEY`: Secret key used for JWT authorisation, replace "helloworld" with your desired key. 
+- `TOKEN_KEY`: Secret key used for JWT authorisation, replace "helloworld" with your desired key. 
 
 ## Running the Application
 To start the server, run:
@@ -41,10 +41,52 @@ The server will be running at http://localhost:8000 (replace 8000 with the port 
 ## API Endpoints
 The following API endpoints are available:
 
-- `POST /odds`: Scrape odds for a given horse racing event from a bookmaker site.
-- `POST /events`: Scrape horce racing events for a given bookmaker site. 
-- `POST /register`: Create new user in database.  
-- `POST /login`: Query database and login user. 
+### POST /odds: 
+
+Scrape odds for a given horse racing event from a bookmaker site.
+
+**Example Request:**
+```json
+ {
+  "eventUrl": "https://bookmaker.example.com/horse-racing/event-url"
+}
+```
+### POST /events
+
+Scrape horce racing events for a given bookmaker site. 
+
+**Example Request:**
+
+```json
+{
+  "bookmakerUrl": "https://bookmaker.example.com/horse-racing"
+}
+```
+### POST /register
+
+Create new user in database. 
+
+**Example Request:**
+
+```json
+{
+  "username": "exampleuser",
+  "password": "examplepassword",
+  "email": "example@example.com"
+}
+```
+ ### POST /login
+
+Query database and login user. 
+
+**Example Request:**
+
+```json
+ {
+  "username": "exampleuser",
+  "password": "examplepassword"
+}
+```
 
 <p align="center">
   <img src="../client/src/assets/endpoint1.png"  width= 1000/>
