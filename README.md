@@ -27,8 +27,9 @@ Swin helps you collect data from a bookmaker and visualise horse racing events o
 ## Table of Contents
 
 1. [Getting Started](#Getting-Started)
-2. [Tech Stack](#Tech-Stack)
-3. [Assumptions](#Assumptions)
+2. [Assumptions](#Assumptions)
+3. [Tech Stack](#Tech-Stack)
+4. [Developers](#Developers)
 
 ## Getting Started 
 
