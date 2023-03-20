@@ -1,22 +1,25 @@
-import mongoose from "mongoose";
-import dotenv from 'dotenv'
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
-const uri : string | undefined = process.env.MONGODB_URI
+const uri: string | undefined = process.env.MONGODB_URI;
 
 mongoose.set('strictQuery', false);
 
-const connectMongo = async () => {
+export const connectMongo = async () => {
   try {
-    if (uri) await mongoose.connect(uri);
+    if (uri) {
+      await mongoose.connect(uri); 
+    }
     console.log('Successfully connected to the database !');
   } catch (error) {
     console.log('ERROR', error);
-    return error
+    return error;
   }
-}
+};
 
 connectMongo();
 
-export default mongoose
+export default mongoose;
+

@@ -1,4 +1,4 @@
-import { scrapeEventData} from './scrapeEventData';
+import { scrapeEventData } from './scrapeEventData';
 import { EventData } from '../returnTypes';
 
 describe('scrapeEventData', () => {
@@ -23,6 +23,8 @@ describe('scrapeEventData', () => {
   it('returns event data for valid pageUrl', async () => {
     const pageUrl: string = 'https://example.com';
     const eventData: EventData[] = await scrapeEventData(pageUrl);
+
+    // If no events found, skip this test case and log a warning
     if (eventData.length === 0) {
       console.warn('No events found on page. Skipping test.');
       return;
