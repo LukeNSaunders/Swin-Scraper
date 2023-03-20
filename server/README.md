@@ -50,9 +50,7 @@ Requires an Authorization header with the JWT token obtained from a successful l
 **Example Request:**
 ```json
 
-{
 "Bearer Token": "Your_jwt_token_here"
-}
 
 {
 "eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
