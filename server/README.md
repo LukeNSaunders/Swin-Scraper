@@ -59,7 +59,7 @@ Scrape horce racing events for a given bookmaker site.
 
 ```json
 {
-  "bookmakerUrl": "https://sports.bwin.com/en/sports/horse-racing-29/today"
+  "pageUrl": "https://sports.bwin.com/en/sports/horse-racing-29/today"
 }
 ```
 ### POST /register
