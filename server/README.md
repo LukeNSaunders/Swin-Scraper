@@ -77,8 +77,8 @@ Create new user in database.
 ```json
 {
   "username": "exampleuser",
-  "password": "examplepassword",
   "email": "example@example.com"
+  "password": "examplepassword",
 }
 ```
  ### POST /login
