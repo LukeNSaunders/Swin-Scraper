@@ -27,7 +27,7 @@
 2. Open the .env file and add the following environment variables:
 
 - `PORT`: The port on which the server will run (default: 8000)
-- `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and myserverappdb with your desired database name)
+- `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and your desired database name)
 - `TOKEN_KEY`: Secret key used for JWT authorisation, replace "helloworld" with your desired key. 
 
 ## Running the Application
