@@ -83,7 +83,7 @@ Query database and login user.
 
 ```json
  {
-  "username": "exampleuser",
+  "email": "example@example.com",
   "password": "examplepassword"
 }
 ```
