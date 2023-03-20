@@ -15,6 +15,7 @@ export default function DisplayEvents({ event }: DisplayEventProps) {
   
   const baseURL: string = 'https://sports.bwin.com';
 
+  // function will keep fetching until response from server is sent back. 
   const handleDisplayOdds = async () => {
     if (!isClicked && !eventOdds.length && !isLoading) {
       setIsLoading(true);

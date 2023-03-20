@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
-import {Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { authenticateUser, CustomRequest } from './auth';
+
+// Mock the 'jsonwebtoken' library
 
 jest.mock('jsonwebtoken', () => ({
   verify: jest.fn(),
@@ -10,27 +12,33 @@ describe('Auth Middleware', () => {
   let req: CustomRequest;
   let res: Response;
   let next: NextFunction;
-  const tokenKey =  process.env.TOKEN_KEY;
+  const tokenKey = process.env.TOKEN_KEY;
+
+  // Set up the test environment before each test
 
   beforeEach(() => {
     req = {
       headers: {},
     } as CustomRequest;
-  
+
     res = {
       status: jest.fn().mockReturnThis(),
       send: jest.fn(),
     } as unknown as Response;
-  
+
     next = jest.fn();
-  
+
     // Set the TOKEN_KEY environment variable for testing
     process.env.TOKEN_KEY = tokenKey;
   });
 
+  // Clean up after each test
+
   afterEach(() => {
     jest.clearAllMocks();
   });
+
+  // Test case: No token provided
 
   it('should return 403 if no token is provided', () => {
     authenticateUser(req, res, next);
@@ -38,6 +46,8 @@ describe('Auth Middleware', () => {
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.send).toHaveBeenCalledWith('A token is required for authentication');
   });
+
+  // Test case: Valid token provided
 
   it('should call next() if the token is valid', () => {
     const token = 'test-token';
@@ -53,6 +63,8 @@ describe('Auth Middleware', () => {
     expect(req.user).toEqual(decoded);
     expect(next).toHaveBeenCalled();
   });
+
+  // Test case: Invalid token provided
 
   it('should return 401 if the token is invalid', () => {
     const token = 'invalid-token';

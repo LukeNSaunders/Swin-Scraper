@@ -56,6 +56,8 @@ export const fetchRacingEvents = async (pageUrl: string) => {
   }
 };
 
+// FETCH HORSE NAMES AND ODDS BY EVENT URL 
+
 export const fetchEventOdds = async (eventUrl: string) => {
   const token = localStorage.getItem('token');
 
