@@ -32,7 +32,8 @@ Swin helps you collect data from a bookmaker and visualise horse racing events o
 
 ## Getting Started 
 
-Swin is currently not deployed and requires setting up a mongoDB database to access full features. More info available [here](https://gist.github.com/rupeshtiwari/2eaa1b40e5bdd23de27fef3289bc92f4)
+Swin is currently not deployed and requires setting up a [mongoDB](https://gist.github.com/rupeshtiwari/2eaa1b40e5bdd23de27fef3289bc92f4)
+ database to access full features. More info about the setup can be found in the Client and Server README files. 
 
 1. Clone this repo and enter!
 
