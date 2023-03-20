@@ -45,11 +45,19 @@ The following API endpoints are available:
 
 Scrape odds for a given horse racing event from a bookmaker site.
 
+Requires an Authorization header with the JWT token obtained from a successful login. In Thunder Client, set the token in the Auth section under the "Bearer" category.
+
 **Example Request:**
 ```json
- {
-  "eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
+
+{
+"Bearer Token": "Your_jwt_token_here"
 }
+
+{
+"eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
+}
+
 ```
 ### POST /events
 
