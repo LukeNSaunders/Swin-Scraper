@@ -85,6 +85,7 @@ The following assumptions were made while developing this project:
 6. The data fetched from the bookmaker's website, such as horse names and odds, will be consistently formatted and easily identifiable within the website's HTML structure.
 7. The authentication and authorization process will be implemented using JSON Web Tokens (JWT) and stored in the browser's local storage to facilitate a seamless login and logout experience for users.
 8. The client-side /dashboard route will be secured and accessible only to users who have successfully logged in.
+9. Users are required to register and log in to obtain a JWT token, which is necessary for accessing the protected /odds endpoint.
 
 ## Tech Stack
 
