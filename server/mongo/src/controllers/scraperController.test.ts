@@ -1,6 +1,6 @@
 const { scrapeEvents, scrapeOddsByEvent } = require('./scraperController');
 const { scrapeEventData } = require('../scrapers/scrapeEventData');
-const { scrapeAllHorseInfo } = require('../scrapers/scrapeHorseData');
+const { scrapeAllHorseData } = require('../scrapers/scrapeHorseData');
 
 // Mocks for scraping functions
 jest.mock('../scrapers/scrapeEventData', () => ({
@@ -8,7 +8,7 @@ jest.mock('../scrapers/scrapeEventData', () => ({
 }));
 
 jest.mock('../scrapers/scrapeHorseData', () => ({
-  scrapeAllHorseInfo: jest.fn(),
+  scrapeAllHorseData: jest.fn(),
 }));
 
 // SCRAPE EVENTS FUNCTION TESTS
@@ -102,35 +102,35 @@ describe('scrapeOddsByEvent', () => {
 
   // SUCCESS AND 201 STATUS
 
-  // Set up mock data that will be returned by the scrapeAllHorseInfo function
+  // Set up mock data that will be returned by the scrapeAllHorseData function
 
-  it('should call scrapeAllHorseInfo with the provided eventUrl', async () => {
+  it('should call scrapeAllHorseData with the provided eventUrl', async () => {
     const mockData = [
       { horse: 'Horse 1', odds: 5 },
       { horse: 'Horse 2', odds: 3 },
     ];
-    scrapeAllHorseInfo.mockResolvedValue(mockData);
+    scrapeAllHorseData.mockResolvedValue(mockData);
 
     await scrapeOddsByEvent(req, res);
 
     // assert correct calls of status and functions
-    expect(scrapeAllHorseInfo).toHaveBeenCalledWith('http://example.com/event');
+    expect(scrapeAllHorseData).toHaveBeenCalledWith('http://example.com/event');
     expect(res.status).toHaveBeenCalledWith(201);
     expect(res.json).toHaveBeenCalledWith(mockData);
   });
 
   // FAIL AND 500 STATUS
 
-  // Set up error message that will be thrown by the scrapeAllHorseInfo function
+  // Set up error message that will be thrown by the scrapeAllHorseData function
 
   it('should return 500 if an error occurs during scraping', async () => {
     const errorMessage = 'Error scraping data';
-    scrapeAllHorseInfo.mockRejectedValue(new Error(errorMessage));
+    scrapeAllHorseData.mockRejectedValue(new Error(errorMessage));
 
     await scrapeOddsByEvent(req, res);
 
    // Assert correct calls  
-    expect(scrapeAllHorseInfo).toHaveBeenCalledWith('http://example.com/event');
+    expect(scrapeAllHorseData).toHaveBeenCalledWith('http://example.com/event');
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({ error: errorMessage });
   });
