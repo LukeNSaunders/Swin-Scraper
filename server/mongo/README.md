@@ -1,4 +1,4 @@
-# SERVER
+# Mongo
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@
 1. Change to server directory:
 
 ```bash
-  cd server
+  cd mongo
 ```
 
 2. Install dependencies

@@ -34,7 +34,6 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
   
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    console.log(email)
   };
 
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
