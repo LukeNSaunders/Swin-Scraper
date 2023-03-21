@@ -13,7 +13,7 @@ This project's backend provides two options for running the server with differen
 The server project is organized into two subfolders:
 
 - Mongo: Contains the setup and configuration for the MongoDB database.
-- SQL: Contains the setup and configuration for the SQL database.
+- SQL: Contains the setup and configuration for the PostgreSQL database.
 
 ## Usage
 
