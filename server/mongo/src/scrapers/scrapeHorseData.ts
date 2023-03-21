@@ -2,6 +2,8 @@ import { Page } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
 import { HorseData } from '../returnTypes';
 
+  // query event page for relevant classes (runner-name && win-market-odds)
+
 async function scrapeHorseNamesAndOdds(page: Page): Promise<[string[], string[]]> {
   const [horseNames, horseOdds] = await Promise.all([
     page.$$eval('.runner-name', (elements: Element[]) => elements.map((el: Element) => el.textContent?.trim())),
@@ -10,34 +12,40 @@ async function scrapeHorseNamesAndOdds(page: Page): Promise<[string[], string[]]
   return [horseNames, horseOdds] as [string[], string[]];
 }
 
-function formatHorseInfo(horseNames: string[], horseOdds: string[]): HorseData[] {
+// Format the horse Data into an array of HorseData objects
+
+function formatHorseData(horseNames: string[], horseOdds: string[]): HorseData[] {
   return horseNames.map((horseName, index) => ({
     horseName: horseName,
     horseOdds: horseOdds[index],
   }));
 }
 
-function removeUnwantedHorseInfo(formattedHorseInfo: HorseData[]): HorseData[] {
-  const uniqueHorseInfo: HorseData[] = [];
-  formattedHorseInfo.forEach((horse) => {
+// Remove unwanted horse Data (e.g., duplicates, 'favourite')
+
+function removeUnwantedHorseData(formattedHorseData: HorseData[]): HorseData[] {
+  const uniqueHorseData: HorseData[] = [];
+  formattedHorseData.forEach((horse) => {
     if (!horse.horseName.toLowerCase().includes('favourite')) {
-    const existingHorse = uniqueHorseInfo.find(
+    const existingHorse = uniqueHorseData.find(
       (uniqueHorse) => uniqueHorse.horseName === horse.horseName
     );
     if (!existingHorse) {
-      uniqueHorseInfo.push(horse);
+      uniqueHorseData.push(horse);
     }
   }
   });
-  return uniqueHorseInfo;
+  return uniqueHorseData;
 }
 
-export async function scrapeAllHorseInfo(eventUrl: string): Promise<HorseData[]> {
+// Main function to scrape all horse Data from the event URL
+
+export async function scrapeAllHorseData(eventUrl: string): Promise<HorseData[]> {
   const page = await createPage();
   await page.goto(eventUrl);
   const [horseNames, horseOdds] = await scrapeHorseNamesAndOdds(page);
-  const formattedHorseInfo = formatHorseInfo(horseNames, horseOdds);
-  const uniqueHorseInfo = removeUnwantedHorseInfo(formattedHorseInfo);
+  const formattedHorseData = formatHorseData(horseNames, horseOdds);
+  const uniqueHorseData = removeUnwantedHorseData(formattedHorseData);
   await closeBrowser();
-  return uniqueHorseInfo ;
+  return uniqueHorseData ;
 }

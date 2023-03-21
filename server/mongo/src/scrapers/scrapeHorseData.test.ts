@@ -1,10 +1,10 @@
-import { scrapeAllHorseInfo} from './scrapeHorseData';
+import { scrapeAllHorseData} from './scrapeHorseData';
 import { HorseData } from '../returnTypes';
 
-describe('scrapeAllHorseInfo', () => {
-  test('returns an array of HorseData objects', async () => {
+describe('scrapeAllHorseData', () => {
+  it('returns an array of HorseData objects', async () => {
     const eventUrl: string = 'https://example.com';
-    const horseData: HorseData[] = await scrapeAllHorseInfo(eventUrl);
+    const horseData: HorseData[] = await scrapeAllHorseData(eventUrl);
     expect(Array.isArray(horseData)).toBe(true);
     horseData.forEach((data: HorseData) => {
       expect(typeof data.horseName).toBe('string');
@@ -12,16 +12,16 @@ describe('scrapeAllHorseInfo', () => {
     });
   });
 
-  test('returns empty array when given invalid eventUrl', async () => {
+  it('returns empty array when given invalid eventUrl', async () => {
     const eventUrl: string = 'https://invalid-url.com';
-    const horseData: HorseData[] = await scrapeAllHorseInfo(eventUrl);
+    const horseData: HorseData[] = await scrapeAllHorseData(eventUrl);
     expect(Array.isArray(horseData)).toBe(true);
     expect(horseData.length).toBe(0);
   });
 
-  test('returns unique horse data for valid eventUrl', async () => {
+  it('returns unique horse data for valid eventUrl', async () => {
     const eventUrl: string = 'https://example.com';
-    const horseData: HorseData[] = await scrapeAllHorseInfo(eventUrl);
+    const horseData: HorseData[] = await scrapeAllHorseData(eventUrl);
     if (horseData.length === 0) {
       console.warn('No horse data found on page. Skipping test.');
       return;
@@ -35,9 +35,9 @@ describe('scrapeAllHorseInfo', () => {
     });
   });
 
-  test('returns formatted horse data for valid eventUrl', async () => {
+  it('returns formatted horse data for valid eventUrl', async () => {
     const eventUrl: string = 'https://example.com';
-    const horseData: HorseData[] = await scrapeAllHorseInfo(eventUrl);
+    const horseData: HorseData[] = await scrapeAllHorseData(eventUrl);
     horseData.forEach((data: HorseData) => {
       expect(data.horseName).not.toMatch(/^\d+\./);
       expect(data.horseOdds).not.toMatch(/^-?\d+$/);
