@@ -8,7 +8,7 @@ export interface CustomRequest extends Request {
 }
 
 export const authenticateUser = (req: CustomRequest, res: Response, next: NextFunction) => {
-  // checking for token in different locations
+  // checking for token in headers
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 

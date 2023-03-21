@@ -1,5 +1,5 @@
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
-import { EventData } from '../returnTypes';
+import { EventData } from '../types';
 
 export async function scrapeEventData(pageUrl: string): Promise<EventData[]> {
   const page = await createPage();

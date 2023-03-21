@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer';
 import { createPage, closeBrowser } from '../utils/puppeteerUtils';
-import { HorseData } from '../returnTypes';
+import { HorseData } from '../types';
 
   // query event page for relevant classes (runner-name && win-market-odds)
 

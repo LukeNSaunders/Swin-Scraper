@@ -1,5 +1,5 @@
 import { scrapeEventData } from './scrapeEventData';
-import { EventData } from '../returnTypes';
+import { EventData } from '../types';
 
 describe('scrapeEventData', () => {
   it('returns an array of Eventdata objects', async () => {

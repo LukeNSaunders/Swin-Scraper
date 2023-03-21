@@ -1,7 +1,7 @@
 import { registerUser } from './userController';
 import { User } from '../models/userSchema';
 import bcrypt from 'bcrypt';
-import { sequelize } from '../models/index';
+import { sequelize } from '../models/db';
 
 
 // Mock the userSchema model and bcrypt library
