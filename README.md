@@ -47,7 +47,10 @@ git clone https://github.com/LukeNSaunders/Swin-Scraper.git
 cd client
 npm install
 
-cd mongo // sql
+cd mongo
+npm install
+
+cd sql 
 npm install
 ```
 
