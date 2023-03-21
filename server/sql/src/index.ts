@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors'
 import router from './router'
-import { sequelize } from './models/index';
+import { sequelize } from './models/db';
 
 const app: Express = express();
 const PORT: number = Number(process.env.PORT);

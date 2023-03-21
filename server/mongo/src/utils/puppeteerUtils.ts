@@ -9,29 +9,21 @@ export async function createPage(): Promise<Page> {
     });
   }
   const page = await browser.newPage();
-  console.log(page)
   return page;
 }
 
 export async function closeBrowser(): Promise<void> {
   if (browser) {
     try {
-      console.log(browser)
       await browser.close();
     } catch (error) {
       console.error('Error closing the browser:', error);
     } finally {
       browser = undefined;
-      console.log(browser)
     }
   }
 }
 
-
-// export async function closeBrowser() : Promise<void> {
-//   const browser = await puppeteer.launch()
-//   await browser.close()
-// }
 
 
 

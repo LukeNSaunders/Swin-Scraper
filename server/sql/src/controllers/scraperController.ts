@@ -1,7 +1,7 @@
 import { scrapeAllHorseData } from '../scrapers/scrapeHorseData';
 import { Request, Response } from 'express';
 import { scrapeEventData } from '../scrapers/scrapeEventData';
-import { EventData, HorseData } from '../returnTypes';
+import { EventData, HorseData } from '../types';
 
 export const scrapeOddsByEvent = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -23,7 +23,6 @@ export const scrapeEvents = async (req: Request, res: Response): Promise<void> =
   try {
     const { pageUrl } = req.body;
     const data: EventData[] = await scrapeEventData(pageUrl);
-    console.log(data);
     res.status(201).json(data);
   } catch (error: any) {
     console.log('ERROR', error);
