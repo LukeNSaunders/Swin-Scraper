@@ -50,6 +50,8 @@ npm install
 cd mongo
 npm install
 
+OR 
+
 cd sql 
 npm install
 ```
