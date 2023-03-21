@@ -5,7 +5,6 @@
 1. [Installation](#installation)
 2. [Configuration](#configuration)
 3. [Running the Application](#running-the-application)
-4. [API Endpoints](#api-endpoints)
 
 ## Installation
 
