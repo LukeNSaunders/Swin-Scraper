@@ -17,8 +17,6 @@ The server project is organized into two subfolders:
 
 ## Usage
 
-To run the backend server with your desired database, navigate to either the Mongo or SQL folder and follow the instructions in the corresponding README file.
-
 ### MongoDB
 
 Change to the [Mongo](./mongo) directory and follow the instructions in the `README.md` file.
@@ -26,8 +24,6 @@ Change to the [Mongo](./mongo) directory and follow the instructions in the `REA
 ### SQL
 
 Change to the [SQL](./sequel) directory and follow the instructions in the `README.md` file.
-
-By following the instructions in the chosen folder's README, you can set up and run the server with the database of your choice.
 
 ## API Endpoints
 
