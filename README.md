@@ -39,7 +39,6 @@ Swin is currently not deployed and requires setting up either a [MongoDB](https:
 
 ```bash
 git clone https://github.com/LukeNSaunders/Swin-Scraper.git
-cd breezy-app
 ```
 
 2. cd into client/server folders and install dependencies.
@@ -48,7 +47,7 @@ cd breezy-app
 cd client
 npm install
 
-cd server
+cd mongo // sql
 npm install
 ```
 
