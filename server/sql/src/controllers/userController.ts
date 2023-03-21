@@ -11,9 +11,6 @@ const tokenKey: Secret = process.env.TOKEN_KEY as Secret;
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password } = req.body;
-  console.log(req.body)
-  console.log(username)
-
   try {
     // check if user already exists
     const usernameExists = await User.findOne({ where: {username: username }});
@@ -44,8 +41,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
 
 export const loginUser = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password } = req.body;
-  console.log(req.body)
-  console.log(email)
   try {
     const user  = await User.findOne({ where:{email: email }}) as UserAttributes;
     if (!user) {
