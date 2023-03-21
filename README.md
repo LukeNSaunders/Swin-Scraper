@@ -91,6 +91,7 @@ The following assumptions were made while developing this project:
 - [React](https://github.com/facebook/react) - Front end library for building user interfaces.
 - [Express.js](https://github.com/expressjs) - Node.js Backend Framework.
 - [MongoDB](https://github.com/mongodb)(with Mongoose) - NoSQL database management system
+- [PostgreSQL](https://github.com/postgres) - Open source relational database management system. 
 - [Jest](https://github.com/facebook/jest) - Testing library.
 
 ## Developers
