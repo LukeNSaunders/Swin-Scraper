@@ -1,104 +1,98 @@
-import { useState, ChangeEvent, FormEvent} from "react";
-import { useNavigate } from "react-router-dom";
-import { registerUser } from "../utils/apiService";
-import { UserProps } from "../types/user";
-import "./Register.css";
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../utils/apiService';
+import { RegisterProps } from '../types/user';
+import { sanitize } from '../utils/sanitizeForm';
+import './Register.css';
 
-const initialState = {
-  username: "",
-  email: "",
-  password: "",
-}; 
-
-const Register = ({setUser} : any )=> {
+export default function Register({ setUser }: RegisterProps) {
   const navigate = useNavigate();
-  const [state, setState] = useState(initialState);
-  const [exists, setExists] = useState(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
 
-  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const handleUsername = (e: ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { username, password, email } = state;
     const user = { username, password, email };
+    const sanitizedUser = sanitize(user);
     try {
-      const res = await registerUser(user);
-      if(res.status === 409) {
-        alert(`${res.message}`)
+      const res = await registerUser(sanitizedUser);
+      if (res.status === 409) {
+        alert(`${res.message}`);
       } else {
-        setUser(res)
-        navigate('/')
+        setUser(res);
+        navigate('/');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   const loginHandle = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const validateForm = () => {
-    return !state.username || !state.password || !state.email;
+    return !username || !password || !email;
   };
 
   return (
-    <div className="register-container">
-      <section className="register">
-        <h1 className="title">SWIN BET</h1>
+    <div className='register-container'>
+      <section className='register'>
+        <h1 className='title'>SWIN BET</h1>
 
         <br></br>
 
         <h2>Register</h2>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <input
-            type="text"
-            placeholder="Email"
-            name="email"
-            value={state.email}
-            onChange={handleChange}
+            type='text'
+            placeholder='Email'
+            name='email'
+            maxLength={25}
+            value={email}
+            onChange={handleEmail}
           />
           <br></br>
 
           <input
-            type="text"
-            placeholder="username"
-            name="username"
-            value={state.username}
-            onChange={handleChange}
+            type='text'
+            placeholder='username'
+            name='username'
+            maxLength={10}
+            value={username}
+            onChange={handleUsername}
           />
           <br></br>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={state.password}
-            onChange={handleChange}
+            type='password'
+            placeholder='Password'
+            name='password'
+            maxLength={10}
+            value={password}
+            onChange={handlePassword}
           />
 
           <br></br>
-          <button
-            className="form-submit"
-            type="submit"
-            disabled={validateForm()}
-          >
+          <button className='form-submit' type='submit' disabled={validateForm()}>
             Register
           </button>
         </form>
-        {exists ? <p> User already exists. Please login</p> : "Already a user?"}
-        <br></br>
-        <button onClick={loginHandle} className="form-submit">
+        <button onClick={loginHandle} className='form-submit'>
           Login
         </button>
       </section>
     </div>
   );
-};
-
-export default Register;
+}

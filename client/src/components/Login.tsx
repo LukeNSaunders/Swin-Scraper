@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginProps } from '../types/user';
+import { sanitize } from '../utils/sanitizeForm';
 import './Login.css';
 
 export default function Login({ setIsAuthenticated }: LoginProps) {
@@ -15,7 +16,8 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
     e.preventDefault();
     try {
       const loginData = { email, password };
-      const response = await loginUser(loginData);
+      const sanitisedData = sanitize(loginData)
+      const response = await loginUser(sanitisedData);
       if (response.status === 401 || response.status === 400 || response.status === 409) {
         alert(`${response.message}`);
       }
@@ -27,12 +29,12 @@ export default function Login({ setIsAuthenticated }: LoginProps) {
     } catch (error) {
       console.log(error);
     }
-    setEmail('')
     setPassword('')
   };
   
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+    console.log(email)
   };
 
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {

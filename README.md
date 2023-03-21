@@ -4,20 +4,37 @@ Swin helps you collect data from a bookmaker and visualise horse racing events o
 
 ## Screenshots
 <p align="center">
-  <img src="client/src/assets/races.png" width = 800/> 
-  <img src="client/src/assets/odds.png" width = 800/>
+  <table>
+    <tr>
+      <td>
+        <img src="client/src/assets/login.png" width="500" />
+      </td>
+      <td>
+        <img src="client/src/assets/register.png" width="500" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="client/src/assets/races.png" width="500" />
+      </td>
+      <td>
+        <img src="client/src/assets/odds.png" width="500" />
+      </td>
+    </tr>
+  </table>
 </p>
-
 
 ## Table of Contents
 
 1. [Getting Started](#Getting-Started)
-2. [Tech Stack](#Tech-Stack)
-3. [Assumptions](#Assumptions)
+2. [Assumptions](#Assumptions)
+3. [Tech Stack](#Tech-Stack)
+4. [Developers](#Developers)
 
 ## Getting Started 
 
-Swin is currently not deployed and requires setting up a mongoDB database to access full features.
+Swin is currently not deployed and requires setting up a [MongoDB](https://gist.github.com/rupeshtiwari/2eaa1b40e5bdd23de27fef3289bc92f4)
+ database to access full features. More info about the API and testing endpoints can be found in the [Server](./server/README.md) README file. 
 
 1. Clone this repo and enter!
 
@@ -67,6 +84,8 @@ The following assumptions were made while developing this project:
 5. The project's scope is limited to the specific bookmaker chosen for this task and may not be applicable to other bookmakers without additional modifications.
 6. The data fetched from the bookmaker's website, such as horse names and odds, will be consistently formatted and easily identifiable within the website's HTML structure.
 7. The authentication and authorization process will be implemented using JSON Web Tokens (JWT) and stored in the browser's local storage to facilitate a seamless login and logout experience for users.
+8. Users are required to register and log in to obtain a JWT token, which is necessary for accessing the protected /odds endpoint.
+9. The client-side /dashboard route will be secured and accessible only to users who have successfully logged in.
 
 ## Tech Stack
 

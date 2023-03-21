@@ -27,7 +27,7 @@
 2. Open the .env file and add the following environment variables:
 
 - `PORT`: The port on which the server will run (default: 8000)
-- `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and myserverappdb with your desired database name)
+- `MONGODB_URI`: The MongoDB connection string (replace localhost with your MongoDB server's address, and your desired database name)
 - `TOKEN_KEY`: Secret key used for JWT authorisation, replace "helloworld" with your desired key. 
 
 ## Running the Application
@@ -45,11 +45,17 @@ The following API endpoints are available:
 
 Scrape odds for a given horse racing event from a bookmaker site.
 
+Requires an Authorization header with the JWT token obtained from a successful login. In Thunder Client, set the token in the Auth section under the "Bearer" category.
+
 **Example Request:**
 ```json
- {
-  "eventUrl": "https://bookmaker.example.com/horse-racing/event-url"
+
+"Bearer Token": "Your_jwt_token_here"
+
+{
+"eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
 }
+
 ```
 ### POST /events
 
@@ -59,7 +65,7 @@ Scrape horce racing events for a given bookmaker site.
 
 ```json
 {
-  "bookmakerUrl": "https://bookmaker.example.com/horse-racing"
+  "pageUrl": "https://sports.bwin.com/en/sports/horse-racing-29/today"
 }
 ```
 ### POST /register
@@ -71,8 +77,8 @@ Create new user in database.
 ```json
 {
   "username": "exampleuser",
-  "password": "examplepassword",
   "email": "example@example.com"
+  "password": "examplepassword",
 }
 ```
  ### POST /login
@@ -83,7 +89,7 @@ Query database and login user.
 
 ```json
  {
-  "username": "exampleuser",
+  "email": "example@example.com",
   "password": "examplepassword"
 }
 ```

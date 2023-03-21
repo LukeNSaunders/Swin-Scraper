@@ -1,10 +1,7 @@
 import User, { UserDocument } from '../models/userSchema';
 import bcrypt from 'bcrypt';
 import jwt, { Secret } from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import { Request, Response } from 'express';
-
-dotenv.config();
 
 const tokenKey: Secret = process.env.TOKEN_KEY as Secret;
 
