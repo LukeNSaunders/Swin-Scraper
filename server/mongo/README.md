@@ -1,4 +1,4 @@
-# Mongo
+# MongoDB
 
 ## Table of Contents
 
@@ -37,67 +37,5 @@ To start the server, run:
   npm start 
 ```
 The server will be running at http://localhost:8000 (replace 8000 with the port you specified in the .env file).
-
-## API Endpoints
-The following API endpoints are available:
-
-### POST /odds: 
-
-Scrape odds for a given horse racing event from a bookmaker site.
-
-Requires an Authorization header with the JWT token obtained from a successful login. In Thunder Client, set the token in the Auth section under the "Bearer" category.
-
-**Example Request:**
-```json
-
-"Bearer Token": "Your_jwt_token_here"
-
-{
-"eventUrl": "https://sports.bwin.com/en/sports/horse-racing-29/hawthorne-246/2:4991436"
-}
-
-```
-### POST /events
-
-Scrape horce racing events for a given bookmaker site. 
-
-**Example Request:**
-
-```json
-{
-  "pageUrl": "https://sports.bwin.com/en/sports/horse-racing-29/today"
-}
-```
-### POST /register
-
-Create new user in database. 
-
-**Example Request:**
-
-```json
-{
-  "username": "exampleuser",
-  "email": "example@example.com"
-  "password": "examplepassword",
-}
-```
- ### POST /login
-
-Query database and login user. 
-
-**Example Request:**
-
-```json
- {
-  "email": "example@example.com",
-  "password": "examplepassword"
-}
-```
-
-<p align="center">
-  <img src="../client/src/assets/endpoint1.png"  width= 1000/>
-   <img src="../client/src/assets/endpoint2.png"width= 1000 />
-</p>
-
 
 
