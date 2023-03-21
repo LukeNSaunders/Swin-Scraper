@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-
 import { Response, NextFunction } from 'express';
 import { authenticateUser, CustomRequest } from './auth';
 
@@ -13,11 +12,9 @@ describe('Auth Middleware', () => {
   let req: CustomRequest;
   let res: Response;
   let next: NextFunction;
-
   const tokenKey = process.env.TOKEN_KEY;
 
   // Set up the test environment before each test
-
 
   beforeEach(() => {
     req = {
@@ -68,7 +65,7 @@ describe('Auth Middleware', () => {
   });
 
   // Test case: Invalid token provided
-  
+
   it('should return 401 if the token is invalid', () => {
     const token = 'invalid-token';
 
