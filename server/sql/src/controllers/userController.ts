@@ -4,7 +4,6 @@ import jwt, { Secret } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { UserAttributes } from '../models/userSchema';
 import { Request, Response } from 'express';
-import { Model } from 'sequelize';
 
 dotenv.config();
 
