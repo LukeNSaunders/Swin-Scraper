@@ -99,6 +99,6 @@ Query database and login user.
 ```
 
 <p align="center">
-  <img src="../client/src/assets/endpoint1.png"  width= 1000/>
-   <img src="../client/src/assets/endpoint2.png"width= 1000 />
+  <img src="../../client/src/assets/endpoint1.png"  width= 1000/>
+   <img src="../../client/src/assets/endpoint2.png"width= 1000 />
 </p>
