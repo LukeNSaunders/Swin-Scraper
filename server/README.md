@@ -21,11 +21,11 @@ To run the backend server with your desired database, navigate to either the Mon
 
 ### MongoDB
 
-Change to the Mongo directory and follow the instructions in the `README.md` file.
+Change to the [Mongo](./mongo) directory and follow the instructions in the `README.md` file.
 
 ### SQL
 
-Change to the SQL directory and follow the instructions in the `README.md` file.
+Change to the [SQL](./sequel) directory and follow the instructions in the `README.md` file.
 
 By following the instructions in the chosen folder's README, you can set up and run the server with the database of your choice.
 
