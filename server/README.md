@@ -1,6 +1,6 @@
 # SERVER
 
-This project's backend provides two options for running the server with different databases. You can choose between MongoDB and SQL databases to run the application.
+This project's backend provides two options for running the server with different databases. You can opt between MongoDB and SQL databases to run the application.
 
 ## Table of Contents
 
