@@ -8,7 +8,7 @@
 
 ## Installation
 
-1. Change to server directory:
+1. Change to SQL directory:
 
 ```bash
   cd sql
